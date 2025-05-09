@@ -42,8 +42,6 @@ Get All Products – Only Users can see all products.
 
 Get Product by ID – Only Users can see product details by ID.
 
-🧑‍💻 Note: Admins cannot view products, only users can.
-
 6. Final Features Recap:
 ✅ Login system for both Users and Admins, with different roles
 ✅ JWT Token for secure login and protected routes
