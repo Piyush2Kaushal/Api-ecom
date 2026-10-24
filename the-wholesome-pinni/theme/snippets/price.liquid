@@ -1,0 +1,46 @@
+{%- comment -%}
+  Price display. Params: product (required), variant (optional), show_badge (bool)
+  - Shows a compare-at price + "Sale" badge ONLY when compare_at_price > price.
+  - Never prints £0.00: a zero price shows "Price coming soon".
+{%- endcomment -%}
+{%- liquid
+  if variant
+    assign target = variant
+    assign price = variant.price
+    assign compare = variant.compare_at_price
+  else
+    assign target = product.selected_or_first_available_variant
+    assign price = target.price
+    assign compare = target.compare_at_price
+  endif
+  assign on_sale = false
+  if compare and compare > price and price > 0
+    assign on_sale = true
+  endif
+  assign varies = false
+  if variant == nil and product.price_varies
+    assign varies = true
+  endif
+-%}
+<div class="price{% if on_sale %} price--on-sale{% endif %}" data-price>
+  {%- if price == 0 -%}
+    <span class="price__soon">{{ 'products.product.price_soon' | t }}</span>
+  {%- else -%}
+    <span class="visually-hidden">{% if on_sale %}{{ 'products.product.sale_price' | t }}{% else %}{{ 'products.product.regular_price' | t }}{% endif %}</span>
+    <span class="price__current">
+      {%- if varies -%}{%- assign min_money = product.price_min | money -%}{{ 'products.product.from_price' | t: price: min_money }}{%- else -%}{{ price | money }}{%- endif -%}
+    </span>
+    {%- if on_sale -%}
+      <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+      <s class="price__compare">{{ compare | money }}</s>
+      {%- if show_badge -%}
+        <span class="badge badge--sale">{{ 'products.product.on_sale' | t }}</span>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if target.unit_price_measurement -%}
+      <small class="price__unit">
+        {{- target.unit_price | money }}/{% if target.unit_price_measurement.reference_value != 1 %}{{ target.unit_price_measurement.reference_value }}{% endif %}{{ target.unit_price_measurement.reference_unit -}}
+      </small>
+    {%- endif -%}
+  {%- endif -%}
+</div>

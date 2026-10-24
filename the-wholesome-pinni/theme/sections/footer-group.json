@@ -1,0 +1,46 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu-shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "fallback": "shop"
+          }
+        },
+        "menu-help": {
+          "type": "menu",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer",
+            "fallback": "help"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Get in touch",
+            "text": "<p>Questions about an order or a bulk gifting request? We reply within one working day.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "menu-shop",
+        "menu-help",
+        "contact"
+      ],
+      "settings": {
+        "about_text": "<p>Nourishing tradition, one pinni at a time. Handmade in the UK with pure desi ghee, whole dry fruits and recipes passed down through generations of Punjabi kitchens.</p>",
+        "copyright": "Handmade with love in the UK.",
+        "show_payment": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

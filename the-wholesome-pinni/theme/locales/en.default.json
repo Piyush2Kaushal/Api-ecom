@@ -1,0 +1,282 @@
+{
+  "general": {
+    "error": "Something went wrong. Please try again.",
+    "home": "Home",
+    "continue_shopping": "Continue shopping",
+    "view_all": "View all",
+    "read_more": "Read more",
+    "breadcrumbs": "Breadcrumbs",
+    "password_page": {
+      "login_form_heading": "Enter store using password",
+      "login_password_button": "Enter",
+      "login_form_password_label": "Password",
+      "login_form_error": "Wrong password!",
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"link\">Log in here</a>",
+      "opening_soon": "Opening soon"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous page",
+      "next": "Next page",
+      "page": "Page {{ number }}"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search pinni, panjeeri…",
+      "submit": "Search",
+      "close": "Close search",
+      "results_for_html": "{{ count }} result for “{{ terms }}”",
+      "results_count": {
+        "one": "{{ count }} result for “{{ terms }}”",
+        "other": "{{ count }} results for “{{ terms }}”"
+      },
+      "no_results_html": "No results found for “{{ terms }}”. Try another word, or browse our pinni below.",
+      "no_results_short": "No matches found",
+      "view_all": "View all results",
+      "suggestions": "Popular searches",
+      "products": "Products",
+      "pages": "Pages"
+    },
+    "newsletter": {
+      "label": "Email address",
+      "placeholder": "Your email address",
+      "subscribe": "Subscribe",
+      "success": "Thank you for subscribing! Look out for our next letter from the kitchen."
+    },
+    "social": {
+      "follow": "Follow us"
+    },
+    "slider": {
+      "previous": "Previous slide",
+      "next": "Next slide",
+      "go_to": "Go to slide {{ number }}",
+      "pause": "Pause slideshow",
+      "play": "Play slideshow"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "new_window": "(opens in a new window)",
+    "close": "Close",
+    "menu": "Menu",
+    "open_menu": "Open menu",
+    "rating": "Rated {{ rating }} out of 5"
+  },
+  "layout": {
+    "header": {
+      "search": "Search",
+      "account": "Account",
+      "log_in": "Log in",
+      "cart": "Cart",
+      "cart_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      }
+    },
+    "footer": {
+      "payment_methods": "Payment methods",
+      "copyright": "©",
+      "contact": "Get in touch",
+      "policies": "Policies"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "adding": "Adding…",
+      "added": "Added to cart",
+      "choose_options": "Choose options",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "sale_price": "Sale price",
+      "regular_price": "Regular price",
+      "from_price": "From {{ price }}",
+      "price_soon": "Price coming soon",
+      "in_stock": "In stock – freshly made",
+      "low_stock": "Only {{ count }} left – order soon",
+      "out_of_stock": "Out of stock",
+      "quantity": "Quantity",
+      "increase_quantity": "Increase quantity",
+      "decrease_quantity": "Decrease quantity",
+      "description": "Description",
+      "ingredients": "Ingredients",
+      "allergens": "Allergen information",
+      "storage": "Storage & shelf life",
+      "shipping": "Delivery",
+      "related": "You may also like",
+      "tax_included": "Tax included.",
+      "shipping_at_checkout_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "free_shipping_note": "Free UK delivery on orders over {{ amount }}",
+      "view_details": "View full details",
+      "media_label": "Open image {{ index }} in gallery",
+      "thumbnail_label": "Show image {{ index }}"
+    }
+  },
+  "collections": {
+    "general": {
+      "empty": "No products found",
+      "empty_filtered": "No products match these filters.",
+      "clear_filters": "Clear all",
+      "product_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      }
+    },
+    "filters": {
+      "title": "Filter",
+      "apply": "Apply",
+      "show_results": "Show results",
+      "from": "From",
+      "to": "To",
+      "remove": "Remove filter {{ filter }}",
+      "max_price": "The highest price is {{ price }}"
+    },
+    "sorting": {
+      "title": "Sort by"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
+      "empty_text": "Our pinni are waiting for you – fresh, handmade and full of desi ghee goodness.",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout securely",
+      "view_cart": "View cart",
+      "remove": "Remove {{ title }}",
+      "note": "Order note or gift message",
+      "taxes_and_shipping_at_checkout": "Taxes, discounts and shipping calculated at checkout.",
+      "free_shipping_remaining_html": "You're <strong>{{ amount }}</strong> away from free UK delivery",
+      "free_shipping_unlocked": "You've unlocked free UK delivery!",
+      "update": "Update",
+      "discount": "Discount",
+      "item_total": "Total"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone number",
+      "order": "Order number (optional)",
+      "message": "Message",
+      "send": "Send message",
+      "post_success": "Thank you for getting in touch! We'll reply within one working day.",
+      "error_heading": "Please check the following:"
+    }
+  },
+  "customer": {
+    "login": {
+      "title": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign in",
+      "create_account": "Create account",
+      "new_customer": "New here?",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue",
+      "reset_title": "Reset your password",
+      "reset_text": "We will send you an email to reset your password.",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "reset_success": "We've sent you an email with a link to update your password."
+    },
+    "register": {
+      "title": "Create account",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "submit": "Create"
+    },
+    "account": {
+      "title": "My account",
+      "details": "Account details",
+      "view_addresses": "View addresses",
+      "return": "Return to account",
+      "log_out": "Log out",
+      "orders": "Order history",
+      "no_orders": "You haven't placed any orders yet."
+    },
+    "orders": {
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment status",
+      "fulfillment_status": "Fulfilment status",
+      "total": "Total",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "discount": "Discount",
+      "billing_address": "Billing address",
+      "shipping_address": "Shipping address",
+      "cancelled_html": "Order cancelled on {{ date }}",
+      "placed_on": "Placed on {{ date }}"
+    },
+    "addresses": {
+      "title": "Addresses",
+      "default": "Default",
+      "add_new": "Add a new address",
+      "edit_address": "Edit address",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country/region",
+      "province": "County",
+      "zip": "Postcode",
+      "phone": "Phone",
+      "set_default": "Set as default address",
+      "add": "Add address",
+      "update": "Update address",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you wish to delete this address?"
+    },
+    "activate_account": {
+      "title": "Activate account",
+      "subtext": "Create your password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm password",
+      "submit": "Activate account",
+      "cancel": "Decline invitation"
+    },
+    "reset_password": {
+      "title": "Reset account password",
+      "subtext": "Enter a new password",
+      "password": "Password",
+      "password_confirm": "Confirm password",
+      "submit": "Reset password"
+    }
+  },
+  "templates": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "Like the last pinni in the tin, this page seems to have disappeared."
+    }
+  },
+  "blogs": {
+    "article": {
+      "back": "Back to journal",
+      "by": "By {{ author }}"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Here's your {{ value }} gift card for {{ shop }}!",
+      "code": "Gift card code",
+      "copy": "Copy code",
+      "expired": "Expired",
+      "expires_on": "Expires on {{ expires_on }}",
+      "print": "Print this gift card",
+      "shop_link": "Visit online store"
+    }
+  }
+}

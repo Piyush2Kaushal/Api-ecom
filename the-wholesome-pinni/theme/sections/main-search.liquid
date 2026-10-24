@@ -1,0 +1,68 @@
+<section class="section section--tight">
+  <div class="page-width">
+    {% render 'breadcrumbs' %}
+    <h1 class="page-title">{{ 'general.search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form search-form--page">
+      <input type="hidden" name="type" value="product,page,article">
+      <label for="SearchPageInput" class="visually-hidden">{{ 'general.search.placeholder' | t }}</label>
+      {% render 'icon', name: 'search', size: 22, class: 'search-form__icon' %}
+      <input id="SearchPageInput" type="search" name="q" value="{{ search.terms | escape }}" class="search-form__input" placeholder="{{ 'general.search.placeholder' | t }}">
+      <button type="submit" class="button button--primary button--small">{{ 'general.search.submit' | t }}</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by 24 -%}
+        <p class="search-count">{{ 'general.search.results_count' | t: count: search.results_count, terms: search.terms }}</p>
+        {%- if search.results_count > 0 -%}
+          {%- assign product_results = search.results | where: 'object_type', 'product' -%}
+          {%- assign other_results = search.results | where: 'object_type', 'page' -%}
+          {%- assign article_results = search.results | where: 'object_type', 'article' -%}
+          {%- if product_results.size > 0 -%}
+            <ul class="grid grid--products" role="list">
+              {%- for item in product_results -%}
+                <li>{% render 'product-card', section_id: section.id, product: item, index: forloop.index0, heading_tag: 'h2' %}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if other_results.size > 0 or article_results.size > 0 -%}
+            <h2 class="search-subtitle">{{ 'general.search.pages' | t }}</h2>
+            <ul class="search-pages" role="list">
+              {%- for item in other_results -%}
+                <li><a href="{{ item.url }}"><strong>{{ item.title | escape }}</strong><span>{{ item.content | strip_html | truncatewords: 24 }}</span></a></li>
+              {%- endfor -%}
+              {%- for item in article_results -%}
+                <li><a href="{{ item.url }}"><strong>{{ item.title | escape }}</strong><span>{{ item.excerpt_or_content | strip_html | truncatewords: 24 }}</span></a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        {%- else -%}
+          <div class="empty-state">
+            <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+          </div>
+        {%- endif -%}
+        {% render 'pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    {%- endif -%}
+
+    {%- if search.performed == false or search.results_count == 0 -%}
+      {%- if collections.all.products_count > 0 -%}
+        <h2 class="search-subtitle">{{ section.settings.suggest_heading | escape }}</h2>
+        <ul class="grid grid--products" role="list">
+          {%- for product in collections.all.products limit: 8 -%}
+            <li>{% render 'product-card', section_id: section.id, product: product %}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search results",
+  "class": "section-main-search",
+  "settings": [
+    { "type": "text", "id": "suggest_heading", "label": "Suggestions heading", "default": "Explore our pinni & panjeeri" }
+  ]
+}
+{% endschema %}

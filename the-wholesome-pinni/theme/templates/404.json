@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": { "type": "main-404", "settings": {} },
+    "products": {
+      "type": "featured-products",
+      "settings": { "eyebrow": "", "heading": "Something sweet instead?", "text": "", "collection": "best-sellers", "limit": 4, "button_label": "Shop all", "alt_bg": true }
+    }
+  },
+  "order": ["main", "products"]
+}

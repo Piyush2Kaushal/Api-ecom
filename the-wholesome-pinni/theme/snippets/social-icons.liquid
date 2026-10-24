@@ -1,0 +1,26 @@
+{%- comment -%} Renders only social networks that have a URL set in Theme settings › Social media. {%- endcomment -%}
+{%- liquid
+  assign networks = 'instagram,facebook,tiktok,youtube,pinterest,whatsapp' | split: ','
+  assign has_any = false
+  for n in networks
+    assign key = 'social_' | append: n | append: '_link'
+    if settings[key] != blank
+      assign has_any = true
+    endif
+  endfor
+-%}
+{%- if has_any -%}
+  <ul class="social-icons{% if class %} {{ class }}{% endif %}" role="list">
+    {%- for n in networks -%}
+      {%- assign key = 'social_' | append: n | append: '_link' -%}
+      {%- if settings[key] != blank -%}
+        <li>
+          <a href="{{ settings[key] }}" target="_blank" rel="noopener" class="social-icons__link">
+            {% render 'icon', name: n, size: 18 %}
+            <span class="visually-hidden">{{ n | capitalize }} {{ 'accessibility.new_window' | t }}</span>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- endif -%}

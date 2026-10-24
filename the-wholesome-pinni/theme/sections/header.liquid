@@ -1,0 +1,115 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+-%}
+<header class="header{% if section.settings.sticky %} header--sticky{% endif %}" data-header>
+  <div class="page-width header__inner">
+    <div class="header__left">
+      <button type="button" class="header__icon header__menu-toggle" aria-controls="MobileNav" aria-expanded="false" data-mnav-open>
+        {% render 'icon', name: 'menu', size: 24 %}
+        <span class="visually-hidden">{{ 'accessibility.open_menu' | t }}</span>
+      </button>
+      <a href="{{ routes.root_url }}" class="logo" aria-label="{{ shop.name | escape }} – {{ 'general.home' | t }}">
+        {% render 'logo' %}
+      </a>
+    </div>
+
+    <nav class="nav" aria-label="{{ 'accessibility.menu' | t }}">
+      <ul class="nav__list" role="list">
+        {% render 'menu-items', menu: menu, mode: 'desktop' %}
+      </ul>
+    </nav>
+
+    <div class="header__icons">
+      {%- if section.settings.show_search -%}
+        <button type="button" class="header__icon" aria-controls="SearchModal" aria-expanded="false" data-search-open>
+          {% render 'icon', name: 'search', size: 22 %}
+          <span class="visually-hidden">{{ 'layout.header.search' | t }}</span>
+        </button>
+      {%- endif -%}
+      {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header__icon header__icon--account">
+          {% render 'icon', name: 'account', size: 22 %}
+          <span class="visually-hidden">{% if customer %}{{ 'layout.header.account' | t }}{% else %}{{ 'layout.header.log_in' | t }}{% endif %}</span>
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="header__icon header__cart" data-cart-open>
+        {% render 'icon', name: 'cart', size: 22 %}
+        <span class="visually-hidden">{{ 'layout.header.cart' | t }}</span>
+        <span class="cart-count{% if cart.item_count == 0 %} is-empty{% endif %}" data-cart-count aria-label="{{ 'layout.header.cart_count' | t: count: cart.item_count }}">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="mnav" id="MobileNav" data-mnav hidden>
+  <div class="mnav__overlay" data-mnav-close></div>
+  <div class="mnav__panel" role="dialog" aria-modal="true" aria-label="{{ 'accessibility.menu' | t }}" tabindex="-1">
+    <div class="mnav__head">
+      <a href="{{ routes.root_url }}" class="logo logo--small">{% render 'logo', loading: 'lazy' %}</a>
+      <button type="button" class="header__icon" data-mnav-close>
+        {% render 'icon', name: 'close', size: 24 %}
+        <span class="visually-hidden">{{ 'accessibility.close' | t }}</span>
+      </button>
+    </div>
+    <nav aria-label="{{ 'accessibility.menu' | t }}">
+      <ul class="mnav__list" role="list">
+        {% render 'menu-items', menu: menu, mode: 'mobile' %}
+      </ul>
+    </nav>
+    <div class="mnav__foot">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="mnav__account">
+          {% render 'icon', name: 'account', size: 20 %}
+          {% if customer %}{{ 'layout.header.account' | t }}{% else %}{{ 'layout.header.log_in' | t }}{% endif %}
+        </a>
+      {%- endif -%}
+      {% render 'social-icons' %}
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.show_search -%}
+  <div class="search-modal" id="SearchModal" data-search-modal hidden>
+    <div class="search-modal__overlay" data-search-close></div>
+    <div class="search-modal__panel" role="dialog" aria-modal="true" aria-label="{{ 'general.search.title' | t }}">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+        <input type="hidden" name="type" value="product">
+        <label for="SearchInput" class="visually-hidden">{{ 'general.search.placeholder' | t }}</label>
+        {% render 'icon', name: 'search', size: 22, class: 'search-form__icon' %}
+        <input id="SearchInput" type="search" name="q" class="search-form__input" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off" data-predictive-input>
+        <button type="button" class="header__icon" data-search-close>
+          {% render 'icon', name: 'close', size: 22 %}
+          <span class="visually-hidden">{{ 'general.search.close' | t }}</span>
+        </button>
+      </form>
+      <div class="predictive" data-predictive-results aria-live="polite"></div>
+      {%- if section.settings.search_suggestions != blank -%}
+        <div class="search-suggest" data-search-suggest>
+          <p class="search-suggest__title">{{ 'general.search.suggestions' | t }}</p>
+          <ul class="chip-list" role="list">
+            {%- assign terms = section.settings.search_suggestions | split: ',' -%}
+            {%- for term in terms -%}
+              {%- assign clean = term | strip -%}
+              <li><a class="chip" href="{{ routes.search_url }}?q={{ clean | url_encode }}&type=product">{{ clean | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "sticky", "label": "Sticky header", "default": true },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
+    { "type": "checkbox", "id": "show_account", "label": "Show account / login icon", "default": true, "info": "Only shown when customer accounts are enabled in Settings › Customer accounts." },
+    { "type": "text", "id": "search_suggestions", "label": "Popular searches", "default": "Alsi Pinni, Sugar-Free, Panjeeri, Besan", "info": "Comma-separated." }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

@@ -1,0 +1,22 @@
+{%- comment -%}
+  Single, accurate stock line for a variant. Exactly one state is ever shown.
+  Params: variant
+{%- endcomment -%}
+{%- liquid
+  assign state = 'in'
+  if variant == nil or variant.available == false
+    assign state = 'out'
+  elsif variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny' and settings.show_low_stock and variant.inventory_quantity <= settings.low_stock_threshold
+    assign state = 'low'
+  endif
+-%}
+<p class="stock stock--{{ state }}" data-stock aria-live="polite">
+  <span class="stock__dot" aria-hidden="true"></span>
+  <span data-stock-text>
+    {%- case state -%}
+      {%- when 'out' -%}{{ 'products.product.out_of_stock' | t }}
+      {%- when 'low' -%}{{ 'products.product.low_stock' | t: count: variant.inventory_quantity }}
+      {%- else -%}{{ 'products.product.in_stock' | t }}
+    {%- endcase -%}
+  </span>
+</p>

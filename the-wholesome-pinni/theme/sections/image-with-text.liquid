@@ -1,0 +1,55 @@
+<section class="section{% if section.settings.alt_bg %} section--alt{% endif %}">
+  <div class="page-width">
+    <div class="split split--{{ section.settings.layout }}">
+      <div class="split__media" data-animate>
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500, 750, 1000, 1400', sizes: '(min-width: 990px) 50vw, 100vw', alt: section.settings.image.alt | default: section.settings.heading }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        {%- if section.settings.badge != blank -%}
+          <span class="split__badge">{{ section.settings.badge | escape }}</span>
+        {%- endif -%}
+      </div>
+      <div class="split__content" data-animate>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        {%- if section.settings.heading != blank -%}<h2 class="split__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if settings.show_motif -%}<span class="ornament ornament--left">{% render 'icon', name: 'ornament', size: 120 %}</span>{%- endif -%}
+        <div class="rte">{{ section.settings.text }}</div>
+        {%- if section.settings.signature != blank -%}<p class="split__signature">{{ section.settings.signature | escape }}</p>{%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: routes.root_url }}" class="button button--primary">{{ section.settings.button_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "section-split",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "badge", "label": "Image badge", "default": "Since our Nani's kitchen" },
+    {
+      "type": "select", "id": "layout", "label": "Image position", "default": "image-left",
+      "options": [
+        { "value": "image-left", "label": "Left" },
+        { "value": "image-right", "label": "Right" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Our story" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Nourishing tradition, one pinni at a time" },
+    {
+      "type": "richtext", "id": "text", "label": "Text",
+      "default": "<p>The Wholesome Pinni Co. began in a family kitchen, where winters always meant the warm aroma of atta slowly roasting in desi ghee. Today we hand-make every pinni and panjeeri in small batches using those same recipes – pure ghee, whole dry fruits and no shortcuts.</p>"
+    },
+    { "type": "text", "id": "signature", "label": "Signature line" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Read our story" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "alt_bg", "label": "Peach background", "default": true }
+  ],
+  "presets": [ { "name": "Image with text" } ]
+}
+{% endschema %}

@@ -1,0 +1,150 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-slider",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "overlay": 35,
+            "eyebrow": "Handmade in the UK",
+            "heading": "The taste of a Punjabi winter, made with love",
+            "text": "<p>Traditional pinni and panjeeri slow-roasted in pure desi ghee and packed with almonds, cashews and seeds – just like Nani made.</p>",
+            "button_label": "Shop pinni",
+            "button_link": "shopify://collections/pinni",
+            "button_label_2": "Our story",
+            "button_link_2": "shopify://pages/about-us",
+            "text_align": "left"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "overlay": 35,
+            "eyebrow": "New favourite",
+            "heading": "Sugar-free pinni, all of the tradition",
+            "text": "<p>Sweetened naturally with dates and figs – the indulgence you love, without refined sugar.</p>",
+            "button_label": "Shop sugar-free",
+            "button_link": "shopify://products/sugar-free-pinni",
+            "button_label_2": "View best sellers",
+            "button_link_2": "shopify://collections/best-sellers",
+            "text_align": "left"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "overlay": 35,
+            "eyebrow": "Nourishing tradition",
+            "heading": "Alsi panjeeri for strength & warmth",
+            "text": "<p>A wholesome blend of roasted flaxseed, whole wheat, desi ghee and dry fruits – enjoy a spoonful with warm milk.</p>",
+            "button_label": "Shop panjeeri",
+            "button_link": "shopify://collections/panjeeri",
+            "button_label_2": "",
+            "button_link_2": "",
+            "text_align": "left"
+          }
+        }
+      },
+      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "settings": { "label": "Featured pinni", "height": "large", "autoplay": true, "speed": 6 }
+    },
+    "categories": {
+      "type": "category-tiles",
+      "blocks": {
+        "cat-1": { "type": "category", "settings": { "collection": "pinni", "title": "Pinni", "subtitle": "Hand-rolled ladoo-style sweets in pure desi ghee" } },
+        "cat-2": { "type": "category", "settings": { "collection": "panjeeri", "title": "Panjeeri", "subtitle": "Roasted, crumbly goodness to enjoy by the spoonful" } },
+        "cat-3": { "type": "category", "settings": { "collection": "best-sellers", "title": "Best Sellers", "subtitle": "The family favourites our customers reorder most" } }
+      },
+      "block_order": ["cat-1", "cat-2", "cat-3"],
+      "settings": {
+        "eyebrow": "Our products",
+        "heading": "Made the way Nani made them",
+        "text": "<p>From wholesome atta pinni to nutty alsi panjeeri – every recipe is rooted in Punjabi tradition.</p>",
+        "alt_bg": false
+      }
+    },
+    "best-sellers": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Best sellers",
+        "heading": "Our most-loved pinni",
+        "text": "<p>Seven traditional recipes, each made by hand in small batches.</p>",
+        "collection": "best-sellers",
+        "limit": 7,
+        "button_label": "Shop all",
+        "alt_bg": true
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "badge": "Family recipes",
+        "layout": "image-left",
+        "eyebrow": "Our story",
+        "heading": "Nourishing tradition, one pinni at a time",
+        "text": "<p>In Punjabi homes, the first cold morning of winter has a smell – atta slowly roasting in desi ghee, almonds being chopped, jaggery melting on the stove. That is where The Wholesome Pinni Co. began.</p><p>We still make every pinni and panjeeri by hand, in small batches, using the same family recipes: pure desi ghee, generous dry fruits and absolutely no shortcuts. Just honest, nourishing food that tastes like home.</p>",
+        "signature": "– The Wholesome Pinni family",
+        "button_label": "Read our story",
+        "button_link": "shopify://pages/about-us",
+        "alt_bg": false
+      }
+    },
+    "why": {
+      "type": "why-choose-us",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "icon": "leaf", "title": "Authentic taste", "text": "Traditional Punjabi recipes, handmade in small batches exactly as they have been for generations." } },
+        "f2": { "type": "feature", "settings": { "icon": "ghee", "title": "Desi ghee & dry fruits", "text": "Pure desi ghee and generous almonds, cashews and seeds in every bite – never cheap oils or fillers." } },
+        "f3": { "type": "feature", "settings": { "icon": "support", "title": "Friendly support", "text": "A real family team ready to help with orders, ingredients and gifting – we reply within one working day." } },
+        "f4": { "type": "feature", "settings": { "icon": "truck", "title": "Free shipping", "text": "Free UK delivery on every order over [threshold], carefully packed so your pinni arrive fresh." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": { "eyebrow": "Why choose us", "heading": "The Wholesome promise", "text": "", "style": "dark" }
+    },
+    "banner": {
+      "type": "image-banner",
+      "settings": {
+        "overlay": 40,
+        "height": "medium",
+        "align": "center",
+        "eyebrow": "Winter wellness",
+        "heading": "Warmth in every bite",
+        "text": "<p>Slow-roasted in desi ghee, packed with almonds, cashews and seeds – the Punjabi way to stay strong through winter.</p>",
+        "button_label": "Shop the range",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": { "quote": "<p>Sample review – replace this with a real customer review from your store before launch.</p>", "author": "Sample review", "location": "Edit in Theme Editor", "rating": 5 } },
+        "t2": { "type": "testimonial", "settings": { "quote": "<p>Sample review – replace this with a real customer review from your store before launch.</p>", "author": "Sample review", "location": "Edit in Theme Editor", "rating": 5 } },
+        "t3": { "type": "testimonial", "settings": { "quote": "<p>Sample review – replace this with a real customer review from your store before launch.</p>", "author": "Sample review", "location": "Edit in Theme Editor", "rating": 5 } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": { "eyebrow": "Kind words", "heading": "Loved by families across the UK", "text": "", "alt_bg": false }
+    },
+    "gallery": {
+      "type": "gallery",
+      "blocks": {
+        "g1": { "type": "image", "settings": { "alt": "Pinni on a brass plate" } },
+        "g2": { "type": "image", "settings": { "alt": "Alsi panjeeri in a bowl" } },
+        "g3": { "type": "image", "settings": { "alt": "Hand-rolling pinni" } },
+        "g4": { "type": "image", "settings": { "alt": "Gift box of pinni" } },
+        "g5": { "type": "image", "settings": { "alt": "Badam bites pinni close up" } },
+        "g6": { "type": "image", "settings": { "alt": "Pinni with a cup of chai" } }
+      },
+      "block_order": ["g1", "g2", "g3", "g4", "g5", "g6"],
+      "settings": { "eyebrow": "#thewholesomepinni", "heading": "From our kitchen to yours", "text": "", "handle": "@thewholesomepinni", "alt_bg": true }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join the Wholesome family",
+        "text": "<p>Be first to hear about fresh batches, festive gift boxes and family recipes.</p>",
+        "small_print": "No spam – unsubscribe any time."
+      }
+    }
+  },
+  "order": ["hero", "categories", "best-sellers", "story", "why", "banner", "testimonials", "gallery", "newsletter"]
+}

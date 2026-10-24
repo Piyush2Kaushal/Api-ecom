@@ -1,0 +1,58 @@
+<section class="section{% if section.settings.alt_bg %} section--alt{% endif %}">
+  <div class="page-width">
+    {% render 'section-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text %}
+    <ul class="gallery" role="list">
+      {%- for block in section.blocks -%}
+        <li class="gallery__item" data-animate {{ block.shopify_attributes }}>
+          {%- assign link = block.settings.link | default: section.settings.profile_link -%}
+          {%- if link != blank -%}<a href="{{ link }}" class="gallery__link"{% if link contains 'http' %} target="_blank" rel="noopener"{% endif %}>{%- endif -%}
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300, 500, 700', sizes: '(min-width: 990px) 17vw, (min-width: 750px) 33vw, 50vw', alt: block.settings.image.alt | default: block.settings.alt }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            <span class="gallery__hover" aria-hidden="true">{% render 'icon', name: 'instagram', size: 28 %}</span>
+            {%- if link != blank -%}<span class="visually-hidden">{{ block.settings.alt | default: section.settings.handle }} {{ 'accessibility.new_window' | t }}</span>{%- endif -%}
+          {%- if link != blank -%}</a>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if section.settings.profile_link != blank -%}
+      <div class="section__cta">
+        <a href="{{ section.settings.profile_link }}" class="button button--outline" target="_blank" rel="noopener">
+          {% render 'icon', name: 'instagram', size: 18 %} {{ section.settings.handle | escape }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram-style gallery",
+  "class": "section-gallery",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "#thewholesomepinni" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From our kitchen to yours" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "handle", "label": "Instagram handle", "default": "@thewholesomepinni" },
+    { "type": "url", "id": "profile_link", "label": "Instagram profile link" },
+    { "type": "checkbox", "id": "alt_bg", "label": "Peach background", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Square images work best." },
+        { "type": "text", "id": "alt", "label": "Image description (alt text fallback)" },
+        { "type": "url", "id": "link", "label": "Link (optional)", "info": "Defaults to the profile link." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Instagram-style gallery", "blocks": [ { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" } ] }
+  ]
+}
+{% endschema %}

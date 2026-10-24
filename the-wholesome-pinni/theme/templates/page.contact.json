@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "content": { "type": "main-page", "settings": { "show_breadcrumbs": true } },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "eyebrow": "We'd love to hear from you",
+        "heading": "Get in touch",
+        "text": "<p>Questions about an order, ingredients or gifting for a celebration? Send us a message and our family team will reply within one working day.</p>"
+      }
+    }
+  },
+  "order": ["content", "form"]
+}

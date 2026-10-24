@@ -1,0 +1,23 @@
+<nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs' | t }}">
+  <ol role="list">
+    <li><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a></li>
+    {%- case request.page_type -%}
+      {%- when 'product' -%}
+        {%- if collection -%}
+          <li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>
+        {%- elsif product.collections.size > 0 -%}
+          {%- assign pc = product.collections | where: 'handle', 'pinni' | first | default: product.collections.first -%}
+          <li><a href="{{ pc.url }}">{{ pc.title | escape }}</a></li>
+        {%- endif -%}
+        <li aria-current="page">{{ product.title | escape }}</li>
+      {%- when 'collection' -%}
+        <li aria-current="page">{{ collection.title | escape }}</li>
+      {%- when 'page' -%}
+        <li aria-current="page">{{ page.title | escape }}</li>
+      {%- when 'search' -%}
+        <li aria-current="page">{{ 'general.search.title' | t }}</li>
+      {%- when 'cart' -%}
+        <li aria-current="page">{{ 'cart.general.title' | t }}</li>
+    {%- endcase -%}
+  </ol>
+</nav>

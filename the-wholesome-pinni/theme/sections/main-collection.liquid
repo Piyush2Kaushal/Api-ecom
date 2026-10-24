@@ -1,0 +1,139 @@
+{%- liquid
+  assign per_page = section.settings.per_page
+-%}
+<section class="collection-hero{% if collection.image %} collection-hero--image{% endif %}">
+  {%- if collection.image and section.settings.show_image -%}
+    <div class="collection-hero__media">
+      {{ collection.image | image_url: width: 2000 | image_tag: loading: 'eager', widths: '750, 1100, 1500, 2000', sizes: '100vw', alt: collection.image.alt | default: collection.title }}
+    </div>
+  {%- endif -%}
+  <div class="page-width collection-hero__content">
+    {% render 'breadcrumbs' %}
+    <h1 class="collection-hero__title">{{ collection.title | escape }}</h1>
+    {%- if settings.show_motif -%}<span class="ornament">{% render 'icon', name: 'ornament', size: 120 %}</span>{%- endif -%}
+    {%- if collection.description != blank -%}
+      <div class="collection-hero__desc rte">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="page-width">
+    {%- paginate collection.products by per_page -%}
+      <form class="facets" id="FacetForm" action="{{ collection.url }}" method="get" data-facet-form>
+        <div class="facets__bar">
+          {%- if section.settings.enable_filters and collection.filters.size > 0 -%}
+            <details class="facets__drawer" data-facets-drawer>
+              <summary class="button button--outline button--small">{% render 'icon', name: 'filter', size: 18 %} {{ 'collections.filters.title' | t }}</summary>
+              <div class="facets__panel">
+                {%- for filter in collection.filters -%}
+                  <fieldset class="facet">
+                    <legend class="facet__title">{{ filter.label | escape }}</legend>
+                    {%- case filter.type -%}
+                      {%- when 'list', 'boolean' -%}
+                        <ul class="facet__list" role="list">
+                          {%- for value in filter.values -%}
+                            <li>
+                              <label class="checkbox{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                                <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %} data-facet-input>
+                                <span>{{ value.label | escape }} <small>({{ value.count }})</small></span>
+                              </label>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- when 'price_range' -%}
+                        <div class="facet__price">
+                          <label>
+                            <span>{{ 'collections.filters.from' | t }} ({{ cart.currency.symbol }})</span>
+                            <input type="number" name="{{ filter.min_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}" step="0.01"{% if filter.min_value.value %} value="{{ filter.min_value.value | money_without_currency | remove: ',' }}"{% endif %} placeholder="0">
+                          </label>
+                          <label>
+                            <span>{{ 'collections.filters.to' | t }} ({{ cart.currency.symbol }})</span>
+                            <input type="number" name="{{ filter.max_value.param_name }}" min="0" max="{{ filter.range_max | money_without_currency | remove: ',' }}" step="0.01"{% if filter.max_value.value %} value="{{ filter.max_value.value | money_without_currency | remove: ',' }}"{% endif %} placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}">
+                          </label>
+                        </div>
+                    {%- endcase -%}
+                  </fieldset>
+                {%- endfor -%}
+                <div class="facets__actions">
+                  <a href="{{ collection.url }}?sort_by={{ collection.sort_by | default: collection.default_sort_by }}" class="button button--ghost-dark button--small">{{ 'collections.general.clear_filters' | t }}</a>
+                  <button type="submit" class="button button--primary button--small">{{ 'collections.filters.apply' | t }}</button>
+                </div>
+              </div>
+            </details>
+          {%- endif -%}
+
+          <p class="facets__count">{{ 'collections.general.product_count' | t: count: collection.products_count }}</p>
+
+          {%- if section.settings.enable_sort -%}
+            <div class="facets__sort">
+              <label for="SortBy">{{ 'collections.sorting.title' | t }}</label>
+              <div class="select select--small">
+                {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                <select name="sort_by" id="SortBy" data-facet-input>
+                  {%- for option in collection.sort_options -%}
+                    <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
+                  {%- endfor -%}
+                </select>
+                {% render 'icon', name: 'chevron-down', size: 14 %}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- liquid
+          assign active_count = 0
+          for filter in collection.filters
+            assign active_count = active_count | plus: filter.active_values.size
+            if filter.type == 'price_range' and filter.min_value.value or filter.max_value.value
+              assign active_count = active_count | plus: 1
+            endif
+          endfor
+        -%}
+        {%- if active_count > 0 -%}
+          <ul class="chip-list facets__active" role="list">
+            {%- for filter in collection.filters -%}
+              {%- for value in filter.active_values -%}
+                <li><a class="chip chip--remove" href="{{ value.url_to_remove }}" aria-label="{{ 'collections.filters.remove' | t: filter: value.label }}">{{ value.label | escape }} {% render 'icon', name: 'close', size: 12 %}</a></li>
+              {%- endfor -%}
+              {%- if filter.type == 'price_range' -%}
+                {%- if filter.min_value.value or filter.max_value.value -%}
+                  <li><a class="chip chip--remove" href="{{ filter.url_to_remove }}">{{ filter.min_value.value | default: 0 | money }} – {{ filter.max_value.value | default: filter.range_max | money }} {% render 'icon', name: 'close', size: 12 %}</a></li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            <li><a class="chip" href="{{ collection.url }}?sort_by={{ collection.sort_by | default: collection.default_sort_by }}">{{ 'collections.general.clear_filters' | t }}</a></li>
+          </ul>
+        {%- endif -%}
+      </form>
+
+      {%- if collection.products.size > 0 -%}
+        <ul class="grid grid--products" role="list">
+          {%- for product in collection.products -%}
+            <li>{% render 'product-card', section_id: section.id, product: product, index: forloop.index0, heading_tag: 'h2' %}</li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <div class="empty-state">
+          <p>{%- if active_count > 0 -%}{{ 'collections.general.empty_filtered' | t }}{%- else -%}{{ 'collections.general.empty' | t }}{%- endif -%}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="button button--primary">{{ 'general.continue_shopping' | t }}</a>
+        </div>
+      {%- endif -%}
+
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection products",
+  "class": "section-main-collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "checkbox", "id": "enable_filters", "label": "Enable filters", "default": true, "info": "Customise filters with the free Shopify Search & Discovery app." },
+    { "type": "checkbox", "id": "enable_sort", "label": "Enable sorting", "default": true },
+    { "type": "checkbox", "id": "show_image", "label": "Show collection image", "default": true }
+  ]
+}
+{% endschema %}

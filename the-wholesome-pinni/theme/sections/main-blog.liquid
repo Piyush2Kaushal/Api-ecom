@@ -1,0 +1,34 @@
+<section class="section section--tight">
+  <div class="page-width">
+    <h1 class="page-title page-title--center">{{ blog.title | escape }}</h1>
+    {%- if settings.show_motif -%}<span class="ornament">{% render 'icon', name: 'ornament', size: 120 %}</span>{%- endif -%}
+    {%- paginate blog.articles by 9 -%}
+      <ul class="tiles tiles--3" role="list">
+        {%- for article in blog.articles -%}
+          <li class="tile" data-animate>
+            <a href="{{ article.url }}" class="tile__link">
+              <div class="tile__media">
+                {%- if article.image -%}
+                  {{ article.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 33vw, 100vw', alt: article.image.alt | default: article.title }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="tile__body">
+                <p class="tile__sub">{{ article.published_at | date: '%d %B %Y' }}</p>
+                <h2 class="tile__title">{{ article.title | escape }}</h2>
+                <p class="tile__sub">{{ article.excerpt_or_content | strip_html | truncatewords: 20 }}</p>
+                <span class="tile__cta">{{ 'general.read_more' | t }} {% render 'icon', name: 'arrow-right', size: 16 %}</span>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Blog posts", "class": "section-main-blog", "settings": [] }
+{% endschema %}

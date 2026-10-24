@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "intro": {
+      "type": "image-banner",
+      "settings": {
+        "overlay": 45,
+        "height": "small",
+        "align": "center",
+        "eyebrow": "About us",
+        "heading": "Nourishing tradition",
+        "text": "<p>A family kitchen, a handful of treasured recipes and a lot of desi ghee.</p>",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "badge": "Handmade in the UK",
+        "layout": "image-left",
+        "eyebrow": "Where it all began",
+        "heading": "From Nani's kitchen to your table",
+        "text": "<p>Growing up in a Punjabi home, winter meant one thing: the kitchen filled with the rich aroma of whole-wheat atta slowly roasting in desi ghee. Tins of pinni were made for the whole family, shared with neighbours and packed into suitcases for relatives abroad.</p><p>When we moved to the UK, we couldn't find pinni that tasted like home – most were too sweet, made with oil, or light on dry fruits. So we started making our own, using the recipes handed down to us.</p>",
+        "signature": "",
+        "button_label": "",
+        "button_link": "",
+        "alt_bg": false
+      }
+    },
+    "craft": {
+      "type": "image-with-text",
+      "settings": {
+        "badge": "Small batches",
+        "layout": "image-right",
+        "eyebrow": "How we make it",
+        "heading": "Slow-roasted, hand-rolled, never rushed",
+        "text": "<p>Every batch begins with pure desi ghee and flour roasted low and slow until golden and fragrant – the step that gives pinni its deep, nutty flavour. We fold in generous handfuls of almonds, cashews, melon seeds and edible gum, then roll each pinni by hand.</p><p>No palm oil, no artificial colours, no shortcuts. Just honest ingredients, made fresh in small batches and sent straight to your door.</p>",
+        "signature": "– The Wholesome Pinni family",
+        "button_label": "Shop our pinni",
+        "button_link": "shopify://collections/all",
+        "alt_bg": true
+      }
+    },
+    "content": { "type": "main-page", "settings": { "show_breadcrumbs": false } },
+    "why": {
+      "type": "why-choose-us",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "icon": "leaf", "title": "Authentic taste", "text": "Traditional Punjabi recipes, handmade exactly as they have been for generations." } },
+        "f2": { "type": "feature", "settings": { "icon": "ghee", "title": "Desi ghee & dry fruits", "text": "Pure desi ghee and generous almonds, cashews and seeds in every bite." } },
+        "f3": { "type": "feature", "settings": { "icon": "support", "title": "Friendly support", "text": "A real family team ready to help – we reply within one working day." } },
+        "f4": { "type": "feature", "settings": { "icon": "truck", "title": "Free shipping", "text": "Free UK delivery on every order over [threshold]." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": { "eyebrow": "Our promise", "heading": "What makes us different", "text": "", "style": "dark" }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": { "heading": "Join the Wholesome family", "text": "<p>Fresh batches, festive gift boxes and family recipes – straight to your inbox.</p>", "small_print": "No spam – unsubscribe any time." }
+    }
+  },
+  "order": ["intro", "story", "craft", "content", "why", "newsletter"]
+}

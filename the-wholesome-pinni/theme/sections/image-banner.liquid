@@ -1,0 +1,52 @@
+<section class="banner banner--{{ section.settings.height }} banner--{{ section.settings.align }}" style="--overlay: {{ section.settings.overlay | divided_by: 100.0 }};">
+  <div class="banner__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: section.settings.image.alt | default: section.settings.heading }}
+    {%- else -%}
+      <div class="hero__fallback" aria-hidden="true"><span class="hero__fallback-pinni"></span><span class="hero__fallback-pinni"></span><span class="hero__fallback-pinni"></span></div>
+    {%- endif -%}
+  </div>
+  <div class="page-width banner__content" data-animate>
+    <div class="banner__box">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="banner__heading">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="banner__text rte">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="button button--primary">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lifestyle banner",
+  "class": "section-banner",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "2400 × 1000 px recommended." },
+    { "type": "range", "id": "overlay", "label": "Image darkening", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 40 },
+    {
+      "type": "select", "id": "height", "label": "Height", "default": "medium",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ]
+    },
+    {
+      "type": "select", "id": "align", "label": "Content position", "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "Winter wellness" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Warmth in every bite" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Slow-roasted in desi ghee, packed with almonds, cashews and seeds – the Punjabi way to stay strong through winter.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the range" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [ { "name": "Lifestyle banner" } ]
+}
+{% endschema %}

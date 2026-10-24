@@ -1,0 +1,9 @@
+{%- comment -%} Params: eyebrow, heading, text, align ('center' default), tag ('h2' default) {%- endcomment -%}
+{%- if heading != blank or eyebrow != blank or text != blank -%}
+  <div class="section-heading section-heading--{{ align | default: 'center' }}" data-animate>
+    {%- if eyebrow != blank -%}<p class="eyebrow">{{ eyebrow | escape }}</p>{%- endif -%}
+    {%- if heading != blank -%}<{{ tag | default: 'h2' }} class="section-heading__title">{{ heading | escape }}</{{ tag | default: 'h2' }}>{%- endif -%}
+    {%- if settings.show_motif -%}<span class="ornament">{% render 'icon', name: 'ornament', size: 120 %}</span>{%- endif -%}
+    {%- if text != blank -%}<div class="section-heading__text rte">{{ text }}</div>{%- endif -%}
+  </div>
+{%- endif -%}

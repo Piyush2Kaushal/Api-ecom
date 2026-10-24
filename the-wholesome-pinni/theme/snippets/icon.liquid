@@ -1,0 +1,66 @@
+{%- comment -%}
+  Inline SVG icons. Usage: {% render 'icon', name: 'cart' %}
+{%- endcomment -%}
+{%- capture attrs -%}class="icon icon-{{ name }}{% if class %} {{ class }}{% endif %}" aria-hidden="true" focusable="false" width="{{ size | default: 20 }}" height="{{ size | default: 20 }}"{%- endcapture -%}
+{%- case name -%}
+  {%- when 'search' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+  {%- when 'cart' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+  {%- when 'account' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+  {%- when 'menu' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
+  {%- when 'close' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  {%- when 'chevron-down' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+  {%- when 'chevron-left' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg>
+  {%- when 'chevron-right' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>
+  {%- when 'arrow-right' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m-6-6 6 6-6 6"/></svg>
+  {%- when 'plus' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  {%- when 'minus' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+  {%- when 'trash' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>
+  {%- when 'filter' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+  {%- when 'check' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>
+  {%- when 'star' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9L12 2.8Z"/></svg>
+  {%- when 'quote' -%}
+    <svg {{ attrs }} viewBox="0 0 32 32" fill="currentColor"><path d="M13 7C7.5 8.6 4 12.9 4 18.5V25h9v-9H8.6c.4-3.2 2.4-5.6 5.4-6.6L13 7Zm15 0c-5.5 1.6-9 5.9-9 11.5V25h9v-9h-4.4c.4-3.2 2.4-5.6 5.4-6.6L28 7Z"/></svg>
+  {%- when 'leaf' -%}
+    <svg {{ attrs }} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 38C8 22 18 10 40 8c0 22-12 32-28 30Z"/><path d="M10 38c6-10 14-17 22-22"/></svg>
+  {%- when 'ghee' -%}
+    <svg {{ attrs }} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18h20l-2 22a3 3 0 0 1-3 2H19a3 3 0 0 1-3-2l-2-22Z"/><path d="M12 18h24M18 18v-4a6 6 0 0 1 12 0v4"/><path d="M24 26c-2 3-3 4.5-3 6a3 3 0 0 0 6 0c0-1.5-1-3-3-6Z"/></svg>
+  {%- when 'heart' -%}
+    <svg {{ attrs }} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40S7 30 7 18a9 9 0 0 1 17-4 9 9 0 0 1 17 4c0 12-17 22-17 22Z"/></svg>
+  {%- when 'support' -%}
+    <svg {{ attrs }} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 26v-4a14 14 0 0 1 28 0v4"/><rect x="7" y="25" width="7" height="11" rx="2"/><rect x="34" y="25" width="7" height="11" rx="2"/><path d="M38 36c0 4-4 6-10 6h-2"/></svg>
+  {%- when 'truck' -%}
+    <svg {{ attrs }} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h26v22H4zM30 20h8l6 7v7H30z"/><circle cx="12" cy="36" r="4"/><circle cx="36" cy="36" r="4"/></svg>
+  {%- when 'almond' -%}
+    <svg {{ attrs }} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5c9 7 13 17 11 26-1.6 7-6 11-11 12-5-1-9.4-5-11-12C11 22 15 12 24 5Z"/><path d="M24 12c-2 8-2 18 0 27"/></svg>
+  {%- when 'hand' -%}
+    <svg {{ attrs }} viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 26V12a3 3 0 0 1 6 0v10m0-12a3 3 0 0 1 6 0v12m0-10a3 3 0 0 1 6 0v12m0-6a3 3 0 0 1 6 0v10c0 9-6 14-14 14-6 0-10-3-13-8l-5-9a3 3 0 0 1 5-3l3 4"/></svg>
+  {%- when 'instagram' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+  {%- when 'facebook' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V10.5H7.8v3h2.6V21h3.1Z"/></svg>
+  {%- when 'tiktok' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.3 2.3 1.6 3.8 3.9 4v2.7c-1.4.1-2.6-.3-3.9-1.1v5.9c0 7.5-8.2 9.8-11.5 4.4-2.1-3.5-.8-9.6 6.1-9.8v2.9c-.5.1-1.1.2-1.6.4-1.5.5-2.4 1.5-2.1 3.2.5 3.2 6.4 4.2 5.9-2.1V3h3.2Z"/></svg>
+  {%- when 'youtube' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3L10 15Z"/></svg>
+  {%- when 'pinterest' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="currentColor"><path d="M12.3 2C6.9 2 4 5.5 4 9.2c0 1.7.9 3.9 2.4 4.6.2.1.4.1.4-.2l.3-1.3c0-.1 0-.3-.1-.4-.5-.6-.9-1.7-.9-2.7 0-2.6 2-5.2 5.5-5.2 3 0 5 2 5 4.9 0 3.3-1.7 5.6-3.9 5.6-1.2 0-2.1-1-1.8-2.2.3-1.5 1-3 1-4.1 0-.9-.5-1.7-1.6-1.7-1.2 0-2.2 1.3-2.2 3 0 1.1.4 1.8.4 1.8L7 17.2c-.4 1.7 0 4.4.1 4.7 0 .1.2.2.3 0 .2-.2 1.9-2.7 2.3-4.3l.9-3.3c.5.9 1.8 1.6 3.2 1.6 4.2 0 7.2-3.8 7.2-8.6C21 5.4 17.3 2 12.3 2Z"/></svg>
+  {%- when 'whatsapp' -%}
+    <svg {{ attrs }} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3Z"/></svg>
+  {%- when 'ornament' -%}
+    <svg {{ attrs }} viewBox="0 0 120 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 8h44M76 8h44"/><path d="M60 1.5 66.5 8 60 14.5 53.5 8z" fill="currentColor"/><circle cx="48" cy="8" r="2" fill="currentColor"/><circle cx="72" cy="8" r="2" fill="currentColor"/></svg>
+{%- endcase -%}

@@ -1,0 +1,12 @@
+{%- comment -%} Store logo. Uses the uploaded logo, or the logo bundled in assets/logo.jpg. Params: loading {%- endcomment -%}
+{%- if settings.logo != blank -%}
+  {{ settings.logo | image_url: width: 600 | image_tag:
+    class: 'logo__img',
+    widths: '150, 220, 300, 400, 600',
+    sizes: '(min-width: 990px) 200px, 140px',
+    alt: shop.name,
+    loading: loading | default: 'eager'
+  }}
+{%- else -%}
+  <img src="{{ 'logo.jpg' | asset_url }}" class="logo__img" alt="{{ shop.name | escape }}" width="150" height="132" loading="{{ loading | default: 'eager' }}">
+{%- endif -%}

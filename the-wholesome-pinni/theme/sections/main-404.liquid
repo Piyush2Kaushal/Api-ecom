@@ -1,0 +1,20 @@
+<section class="section">
+  <div class="page-width page-width--narrow notfound">
+    <p class="notfound__code">404</p>
+    <h1 class="page-title">{{ 'templates.404.title' | t }}</h1>
+    {%- if settings.show_motif -%}<span class="ornament">{% render 'icon', name: 'ornament', size: 120 %}</span>{%- endif -%}
+    <p>{{ 'templates.404.subtext' | t }}</p>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form search-form--page">
+      <input type="hidden" name="type" value="product">
+      <label for="NotFoundSearch" class="visually-hidden">{{ 'general.search.placeholder' | t }}</label>
+      {% render 'icon', name: 'search', size: 22, class: 'search-form__icon' %}
+      <input id="NotFoundSearch" type="search" name="q" class="search-form__input" placeholder="{{ 'general.search.placeholder' | t }}">
+      <button type="submit" class="button button--primary button--small">{{ 'general.search.submit' | t }}</button>
+    </form>
+    <a href="{{ routes.all_products_collection_url }}" class="button button--primary">{{ 'general.continue_shopping' | t }}</a>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "404 page", "class": "section-404", "settings": [] }
+{% endschema %}

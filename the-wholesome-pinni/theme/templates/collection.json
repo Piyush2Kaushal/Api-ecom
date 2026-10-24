@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": { "type": "main-collection", "settings": { "per_page": 24, "enable_filters": true, "enable_sort": true, "show_image": true } },
+    "why": {
+      "type": "why-choose-us",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "icon": "leaf", "title": "Authentic taste", "text": "Traditional Punjabi recipes, handmade in small batches." } },
+        "f2": { "type": "feature", "settings": { "icon": "ghee", "title": "Desi ghee & dry fruits", "text": "Pure desi ghee and generous dry fruits in every bite." } },
+        "f3": { "type": "feature", "settings": { "icon": "support", "title": "Friendly support", "text": "A real family team, here to help." } },
+        "f4": { "type": "feature", "settings": { "icon": "truck", "title": "Free shipping", "text": "Free UK delivery on orders over [threshold]." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": { "eyebrow": "", "heading": "", "text": "", "style": "alt" }
+    }
+  },
+  "order": ["main", "why"]
+}

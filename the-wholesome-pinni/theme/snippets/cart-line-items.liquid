@@ -1,0 +1,44 @@
+{%- comment -%} Cart line items, shared by drawer and page. Params: context ('drawer' | 'page') {%- endcomment -%}
+<ul class="cart-items" role="list">
+  {%- for item in cart.items -%}
+    <li class="cart-item" data-line="{{ forloop.index }}" data-key="{{ item.key }}">
+      <a href="{{ item.url }}" class="cart-item__media">
+        {%- if item.image -%}
+          {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.image.alt | default: item.product.title, width: 120, height: 120 }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </a>
+      <div class="cart-item__info">
+        <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title | escape }}</a>
+        {%- unless item.product.has_only_default_variant -%}
+          <p class="cart-item__variant">{{ item.variant.title | escape }}</p>
+        {%- endunless -%}
+        {%- for p in item.properties -%}
+          {%- unless p.last == blank or p.first contains '_' -%}
+            <p class="cart-item__variant">{{ p.first | escape }}: {{ p.last | escape }}</p>
+          {%- endunless -%}
+        {%- endfor -%}
+        <div class="cart-item__price">
+          {%- if item.original_price > item.final_price -%}
+            <s>{{ item.original_price | money }}</s>
+          {%- endif -%}
+          <span>{{ item.final_price | money }}</span>
+        </div>
+        {%- for discount in item.line_level_discount_allocations -%}
+          <p class="cart-item__discount">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</p>
+        {%- endfor -%}
+        <div class="cart-item__actions">
+          <div class="qty qty--small">
+            <button type="button" class="qty__btn" data-cart-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'products.product.decrease_quantity' | t }} – {{ item.product.title | escape }}">{% render 'icon', name: 'minus', size: 14 %}</button>
+            <label class="visually-hidden" for="CartQty-{{ context }}-{{ forloop.index }}">{{ 'products.product.quantity' | t }}</label>
+            <input class="qty__input" id="CartQty-{{ context }}-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" data-cart-input>
+            <button type="button" class="qty__btn" data-cart-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'products.product.increase_quantity' | t }} – {{ item.product.title | escape }}">{% render 'icon', name: 'plus', size: 14 %}</button>
+          </div>
+          <a href="{{ item.url_to_remove }}" class="cart-item__remove" data-cart-qty="0" aria-label="{{ 'cart.general.remove' | t: title: item.product.title }}">{% render 'icon', name: 'trash', size: 18 %}</a>
+        </div>
+      </div>
+      <p class="cart-item__total">{{ item.final_line_price | money }}</p>
+    </li>
+  {%- endfor -%}
+</ul>

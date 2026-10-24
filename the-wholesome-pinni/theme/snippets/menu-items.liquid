@@ -1,0 +1,77 @@
+{%- comment -%}
+  Navigation list. Params: menu (linklist), mode ('desktop' | 'mobile')
+  Falls back to the brand's default navigation if the menu is empty, so the
+  store never shows a blank header before menus are configured.
+{%- endcomment -%}
+{%- if menu != blank and menu.links.size > 0 -%}
+  {%- for link in menu.links -%}
+    {%- if link.links.size > 0 -%}
+      {%- if mode == 'desktop' -%}
+        <li class="nav__item nav__item--has-dropdown" data-dropdown>
+          <a href="{{ link.url }}" class="nav__link{% if link.child_active or link.active %} is-active{% endif %}" aria-haspopup="true" aria-expanded="false">
+            {{- link.title | escape }} {% render 'icon', name: 'chevron-down', size: 14 -%}
+          </a>
+          <ul class="nav__dropdown" role="list">
+            {%- for child in link.links -%}
+              <li><a href="{{ child.url }}" class="nav__dropdown-link{% if child.active %} is-active{% endif %}"{% if child.active %} aria-current="page"{% endif %}>{{ child.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+      {%- else -%}
+        <li class="mnav__item">
+          <details class="mnav__details">
+            <summary class="mnav__link">{{ link.title | escape }} {% render 'icon', name: 'chevron-down', size: 16 %}</summary>
+            <ul class="mnav__sub" role="list">
+              <li><a href="{{ link.url }}" class="mnav__sublink">{{ 'general.view_all' | t }} {{ link.title | escape }}</a></li>
+              {%- for child in link.links -%}
+                <li><a href="{{ child.url }}" class="mnav__sublink">{{ child.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </details>
+        </li>
+      {%- endif -%}
+    {%- else -%}
+      <li class="{% if mode == 'desktop' %}nav__item{% else %}mnav__item{% endif %}">
+        <a href="{{ link.url }}" class="{% if mode == 'desktop' %}nav__link{% else %}mnav__link{% endif %}{% if link.active %} is-active{% endif %}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- liquid
+    assign titles = 'Home|Pinni|Panjeeri|Best Sellers|About Us|Contact Us' | split: '|'
+    assign urls = '/|/collections/pinni|/collections/panjeeri|/collections/best-sellers|/pages/about-us|/pages/contact' | split: '|'
+    assign sub_titles = 'Alsi Pinni|Sugar-Free Pinni|Atta Pinni|Besan Pinni' | split: '|'
+    assign sub_urls = '/products/alsi-pinni-flaxseed|/products/sugar-free-pinni|/products/atta-pinni|/products/besan-pinni' | split: '|'
+  -%}
+  {%- for t in titles -%}
+    {%- assign u = urls[forloop.index0] -%}
+    {%- if t == 'Pinni' -%}
+      {%- if mode == 'desktop' -%}
+        <li class="nav__item nav__item--has-dropdown" data-dropdown>
+          <a href="{{ u }}" class="nav__link" aria-haspopup="true" aria-expanded="false">{{ t }} {% render 'icon', name: 'chevron-down', size: 14 %}</a>
+          <ul class="nav__dropdown" role="list">
+            {%- for st in sub_titles -%}
+              <li><a href="{{ sub_urls[forloop.index0] }}" class="nav__dropdown-link">{{ st }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </li>
+      {%- else -%}
+        <li class="mnav__item">
+          <details class="mnav__details">
+            <summary class="mnav__link">{{ t }} {% render 'icon', name: 'chevron-down', size: 16 %}</summary>
+            <ul class="mnav__sub" role="list">
+              <li><a href="{{ u }}" class="mnav__sublink">{{ 'general.view_all' | t }} {{ t }}</a></li>
+              {%- for st in sub_titles -%}
+                <li><a href="{{ sub_urls[forloop.index0] }}" class="mnav__sublink">{{ st }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </details>
+        </li>
+      {%- endif -%}
+    {%- else -%}
+      <li class="{% if mode == 'desktop' %}nav__item{% else %}mnav__item{% endif %}">
+        <a href="{{ u }}" class="{% if mode == 'desktop' %}nav__link{% else %}mnav__link{% endif %}{% if request.path == u %} is-active{% endif %}">{{ t }}</a>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

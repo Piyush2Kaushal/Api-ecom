@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": { "type": "main-cart", "settings": { "show_note": true } },
+    "recommended": {
+      "type": "featured-products",
+      "settings": { "eyebrow": "Add a little extra", "heading": "Complete your order", "text": "", "collection": "best-sellers", "limit": 4, "button_label": "", "alt_bg": true }
+    }
+  },
+  "order": ["main", "recommended"]
+}

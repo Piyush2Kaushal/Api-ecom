@@ -1,0 +1,18 @@
+<section class="section section--tight">
+  <div class="page-width page-width--narrow">
+    {%- if section.settings.show_breadcrumbs -%}{% render 'breadcrumbs' %}{%- endif -%}
+    <h1 class="page-title page-title--center">{{ page.title | escape }}</h1>
+    {%- if settings.show_motif -%}<span class="ornament">{% render 'icon', name: 'ornament', size: 120 %}</span>{%- endif -%}
+    <div class="rte page-content">{{ page.content }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page content",
+  "class": "section-main-page",
+  "settings": [
+    { "type": "checkbox", "id": "show_breadcrumbs", "label": "Show breadcrumbs", "default": true }
+  ]
+}
+{% endschema %}
