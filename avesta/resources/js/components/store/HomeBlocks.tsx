@@ -62,7 +62,7 @@ export function Hero({ slides }: { slides: any[] }) {
     if (slides.every((sl) => !(sl.title ?? '').trim())) {
         const go = (d: number) => setIndex((index + d + slides.length) % slides.length);
         return (
-            <section className="relative isolate overflow-hidden bg-onyx" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} aria-roledescription="carousel">
+            <section className="group/hero relative isolate overflow-hidden bg-onyx" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} aria-roledescription="carousel">
                 <div className="grid">
                     {slides.map((sl, i) => {
                         const img = (
@@ -89,8 +89,8 @@ export function Hero({ slides }: { slides: any[] }) {
                                 </button>
                             ))}
                         </div>
-                        <button onClick={() => go(-1)} className="absolute left-3 top-1/2 z-20 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-onyx shadow-lg backdrop-blur transition hover:bg-white md:flex" aria-label="Previous slide"><ArrowLeft className="size-4" /></button>
-                        <button onClick={() => go(1)} className="absolute right-3 top-1/2 z-20 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-onyx shadow-lg backdrop-blur transition hover:bg-white md:flex" aria-label="Next slide"><ArrowRight className="size-4" /></button>
+                        <button onClick={() => go(-1)} className="absolute top-1/2 z-20 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-onyx/80 shadow-[0_4px_20px_-6px_rgb(10_10_15/0.35)] ring-1 ring-white/50 backdrop-blur-md transition-all duration-300 opacity-60 group-hover/hero:opacity-100 hover:scale-105 hover:bg-white/70 hover:text-onyx md:flex left-2.5" aria-label="Previous slide"><ArrowLeft className="size-4" strokeWidth={2.25} /></button>
+                        <button onClick={() => go(1)} className="absolute top-1/2 z-20 hidden size-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-onyx/80 shadow-[0_4px_20px_-6px_rgb(10_10_15/0.35)] ring-1 ring-white/50 backdrop-blur-md transition-all duration-300 opacity-60 group-hover/hero:opacity-100 hover:scale-105 hover:bg-white/70 hover:text-onyx md:flex right-2.5" aria-label="Next slide"><ArrowRight className="size-4" strokeWidth={2.25} /></button>
                     </>
                 )}
                 <style>{`@keyframes hero-progress { from { width: 0% } to { width: 100% } }`}</style>
@@ -99,27 +99,28 @@ export function Hero({ slides }: { slides: any[] }) {
     }
 
     return (
-        <section className={cn('relative isolate overflow-hidden', light ? 'bg-porcelain' : 'bg-onyx')} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} aria-roledescription="carousel">
+        <section className={cn('relative isolate grid overflow-hidden', light ? 'bg-porcelain' : 'bg-onyx')} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} aria-roledescription="carousel">
+            {/* Slides share one grid cell; on desktop the tallest image sets the height, so banners are never cropped left/right. */}
             {slides.map((sl, i) => (
-                <div key={sl.id} className={cn('absolute inset-0 transition-opacity duration-[1200ms] ease-[var(--ease-premium)]', i === index ? 'opacity-100' : 'opacity-0')} aria-hidden={i !== index}>
+                <div key={sl.id} className={cn('h-full transition-opacity duration-[1200ms] ease-[var(--ease-premium)] [grid-area:1/1] [&>picture]:block [&>picture]:h-full', i === index ? 'opacity-100' : 'opacity-0')} aria-hidden={i !== index}>
                     {sl.image_url ? (
                         <picture>
                             {sl.mobile_image_url && <source media="(max-width: 767px)" srcSet={sl.mobile_image_url} />}
                             <img
                                 src={sl.image_url}
                                 alt=""
-                                className={cn('size-full object-cover object-[70%_center] transition-transform duration-[8000ms] ease-out md:object-center', i === index ? 'scale-100' : 'scale-[1.06]')}
+                                className="block h-full min-h-[460px] w-full object-cover object-[70%_center] md:min-h-0 md:object-center"
                                 fetchPriority={i === 0 ? 'high' : 'low'}
                             />
                         </picture>
                     ) : (
-                        <div className="size-full bg-noir" />
+                        <div className="h-[460px] w-full bg-noir md:h-full md:min-h-[460px]" />
                     )}
                 </div>
             ))}
-            <div className={cn('absolute inset-0', light ? 'bg-gradient-to-r from-white/90 via-white/60 to-transparent' : 'bg-gradient-to-r from-onyx/85 via-onyx/45 to-transparent max-md:bg-gradient-to-t max-md:from-onyx max-md:via-onyx/70')} />
+            <div className={cn('absolute inset-0 z-10', light ? 'bg-gradient-to-r from-white/90 via-white/60 to-transparent' : 'bg-gradient-to-r from-onyx/85 via-onyx/45 to-transparent max-md:bg-gradient-to-t max-md:from-onyx max-md:via-onyx/70')} />
 
-            <div className="container-x relative flex min-h-[420px] items-end pb-16 pt-14 md:min-h-[460px] md:items-center md:pb-16 lg:min-h-[min(62vh,540px)]">
+            <div className="container-x relative z-10 flex items-end pb-16 pt-14 [grid-area:1/1] md:items-center md:py-14">
                 <div ref={textRef} key={index} className="max-w-[640px]">
                     {s.eyebrow && (
                         <div data-hero-line className={cn('mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.2em] ring-1', light ? 'text-violet-700 ring-violet-200' : 'bg-white/5 text-violet-200 ring-white/15 backdrop-blur')}>
@@ -152,7 +153,7 @@ export function Hero({ slides }: { slides: any[] }) {
             </div>
 
             {slides.length > 1 && (
-                <div className="container-x absolute inset-x-0 bottom-5 flex items-center justify-between gap-6">
+                <div className="container-x absolute inset-x-0 bottom-5 z-20 flex items-center justify-between gap-6">
                     <div className="flex flex-1 gap-2.5 md:max-w-md">
                         {slides.map((sl, i) => (
                             <button key={sl.id} onClick={() => setIndex(i)} className="group relative h-8 flex-1" aria-label={`Slide ${i + 1}`}>
@@ -169,11 +170,11 @@ export function Hero({ slides }: { slides: any[] }) {
                         ))}
                     </div>
                     <div className="hidden gap-2 md:flex">
-                        <button onClick={() => setIndex((index - 1 + slides.length) % slides.length)} className="flex size-10 items-center justify-center rounded-full text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-onyx" aria-label="Previous slide">
-                            <ArrowLeft className="size-5" />
+                        <button onClick={() => setIndex((index - 1 + slides.length) % slides.length)} className="flex size-9 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/30 backdrop-blur-md transition hover:scale-105 hover:bg-white/80 hover:text-onyx" aria-label="Previous slide">
+                            <ArrowLeft className="size-4" />
                         </button>
-                        <button onClick={() => setIndex((index + 1) % slides.length)} className="flex size-10 items-center justify-center rounded-full text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-onyx" aria-label="Next slide">
-                            <ArrowRight className="size-5" />
+                        <button onClick={() => setIndex((index + 1) % slides.length)} className="flex size-9 items-center justify-center rounded-full bg-white/10 text-white ring-1 ring-white/30 backdrop-blur-md transition hover:scale-105 hover:bg-white/80 hover:text-onyx" aria-label="Next slide">
+                            <ArrowRight className="size-4" />
                         </button>
                     </div>
                 </div>
