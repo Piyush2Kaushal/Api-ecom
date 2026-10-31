@@ -12,7 +12,7 @@ class HeroSlideResource extends ResourceController
 
     protected string $singular = 'Slide';
 
-    protected ?string $description = 'The large banner carousel at the top of the homepage. Drag to reorder. Recommended image: 2400 × 1200px (mobile: 1080 × 1350px).';
+    protected ?string $description = 'The banner carousel at the top of the homepage. Drag to reorder. With a headline: image 2400 × 1200px. Image-only banners (text inside the image): leave the headline empty and add a mobile version.';
 
     protected bool $sortable = true;
 
@@ -27,7 +27,7 @@ class HeroSlideResource extends ResourceController
     {
         return [
             ['name' => 'eyebrow', 'label' => 'Small label above title', 'type' => 'text', 'placeholder' => 'Introducing Tenvo'],
-            ['name' => 'title', 'label' => 'Headline', 'type' => 'text', 'required' => true],
+            ['name' => 'title', 'label' => 'Headline', 'type' => 'text', 'help' => 'Leave empty if your image already contains its own text — the banner is then shown exactly as designed and the whole image links to the main button link.'],
             ['name' => 'subtitle', 'label' => 'Supporting text', 'type' => 'textarea', 'max' => 500],
             ['name' => 'image', 'label' => 'Desktop image', 'type' => 'image', 'col' => 6],
             ['name' => 'mobile_image', 'label' => 'Mobile image (optional)', 'type' => 'image', 'col' => 6],
@@ -48,5 +48,12 @@ class HeroSlideResource extends ResourceController
             ['key' => 'button_text', 'label' => 'Button', 'type' => 'text'],
             ['key' => 'is_active', 'label' => 'Visible', 'type' => 'toggle'],
         ];
+    }
+
+    protected function prepare(array $data, ?\Illuminate\Database\Eloquent\Model $item): array
+    {
+        $data['title'] = $data['title'] ?? '';
+
+        return $data;
     }
 }

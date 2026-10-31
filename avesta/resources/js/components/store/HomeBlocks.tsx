@@ -57,6 +57,47 @@ export function Hero({ slides }: { slides: any[] }) {
 
     const s = slides[index];
     const light = s.theme === 'light';
+
+    // Image-only banners (no headline): show each banner exactly as designed, at its natural shape.
+    if (slides.every((sl) => !(sl.title ?? '').trim())) {
+        const go = (d: number) => setIndex((index + d + slides.length) % slides.length);
+        return (
+            <section className="relative isolate overflow-hidden bg-onyx" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} aria-roledescription="carousel">
+                <div className="grid">
+                    {slides.map((sl, i) => {
+                        const img = (
+                            <picture>
+                                {sl.mobile_image_url && <source media="(max-width: 767px)" srcSet={sl.mobile_image_url} />}
+                                <img src={sl.image_url} alt={sl.eyebrow || sl.button_text || 'Avesta'} className="block h-auto w-full" fetchPriority={i === 0 ? 'high' : 'low'} />
+                            </picture>
+                        );
+                        return (
+                            <div key={sl.id} className={cn('transition-opacity duration-[1000ms] ease-[var(--ease-premium)] [grid-area:1/1]', i === index ? 'z-10 opacity-100' : 'pointer-events-none opacity-0')} aria-hidden={i !== index}>
+                                {sl.button_link ? <Link href={sl.button_link} aria-label={sl.button_text || sl.eyebrow || 'View'}>{img}</Link> : img}
+                            </div>
+                        );
+                    })}
+                </div>
+                {slides.length > 1 && (
+                    <>
+                        <div className="absolute inset-x-0 bottom-3 z-20 flex justify-center gap-2 md:bottom-4">
+                            {slides.map((sl, i) => (
+                                <button key={sl.id} onClick={() => setIndex(i)} className="group relative h-6 w-10 md:w-14" aria-label={`Slide ${i + 1}`}>
+                                    <span className="absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-onyx/25 ring-1 ring-white/40">
+                                        <span className="block h-full rounded-full bg-violet-600" style={{ width: i < index ? '100%' : i === index ? undefined : '0%', animation: i === index && !paused ? `hero-progress ${DURATION}ms linear forwards` : undefined }} />
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
+                        <button onClick={() => go(-1)} className="absolute left-3 top-1/2 z-20 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-onyx shadow-lg backdrop-blur transition hover:bg-white md:flex" aria-label="Previous slide"><ArrowLeft className="size-4" /></button>
+                        <button onClick={() => go(1)} className="absolute right-3 top-1/2 z-20 hidden size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-onyx shadow-lg backdrop-blur transition hover:bg-white md:flex" aria-label="Next slide"><ArrowRight className="size-4" /></button>
+                    </>
+                )}
+                <style>{`@keyframes hero-progress { from { width: 0% } to { width: 100% } }`}</style>
+            </section>
+        );
+    }
+
     return (
         <section className={cn('relative isolate overflow-hidden', light ? 'bg-porcelain' : 'bg-onyx')} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} aria-roledescription="carousel">
             {slides.map((sl, i) => (

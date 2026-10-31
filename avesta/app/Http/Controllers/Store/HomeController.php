@@ -50,8 +50,12 @@ class HomeController extends Controller
                 $ids = $cfg['category_ids'] ?? [];
                 $q = Category::where('is_active', true);
                 $ids ? $q->whereIn('id', $ids) : $q->where(fn ($w) => $w->where('show_on_home', true)->orWhere(fn ($x) => $x->whereNull('parent_id')));
-                $data['categories'] = $q->orderBy('sort_order')->limit(12)->get(['id', 'name', 'slug', 'image', 'depth', 'show_on_home'])
-                    ->sortByDesc('show_on_home')->values()->map(fn ($c) => ['name' => $c->name, 'slug' => $c->slug, 'image_url' => $c->image_url]);
+                $list = $q->orderByDesc('show_on_home')->orderBy('depth')->orderBy('sort_order')->limit(12)->get(['id', 'name', 'slug', 'image', 'depth', 'show_on_home']);
+                if ($ids) {
+                    // Keep the exact order chosen in the admin.
+                    $list = $list->sortBy(fn ($c) => array_search($c->id, array_map('intval', $ids)))->values();
+                }
+                $data['categories'] = $list->map(fn ($c) => ['name' => $c->name, 'slug' => $c->slug, 'image_url' => $c->image_url])->values();
                 break;
             case 'products':
                 $limit = (int) ($cfg['limit'] ?? 8);
