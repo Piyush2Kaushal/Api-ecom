@@ -78,31 +78,31 @@ export function Hero({ slides }: { slides: any[] }) {
             ))}
             <div className={cn('absolute inset-0', light ? 'bg-gradient-to-r from-white/90 via-white/60 to-transparent' : 'bg-gradient-to-r from-onyx/85 via-onyx/45 to-transparent max-md:bg-gradient-to-t max-md:from-onyx max-md:via-onyx/70')} />
 
-            <div className="container-x relative flex min-h-[560px] items-end pb-24 pt-28 md:min-h-[680px] md:items-center md:pb-28 lg:min-h-[min(84vh,760px)]">
+            <div className="container-x relative flex min-h-[420px] items-end pb-16 pt-14 md:min-h-[460px] md:items-center md:pb-16 lg:min-h-[min(62vh,540px)]">
                 <div ref={textRef} key={index} className="max-w-[640px]">
                     {s.eyebrow && (
-                        <div data-hero-line className={cn('mb-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] ring-1', light ? 'text-violet-700 ring-violet-200' : 'bg-white/5 text-violet-200 ring-white/15 backdrop-blur')}>
+                        <div data-hero-line className={cn('mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.2em] ring-1', light ? 'text-violet-700 ring-violet-200' : 'bg-white/5 text-violet-200 ring-white/15 backdrop-blur')}>
                             <span className="size-1.5 rounded-full bg-gold" />
                             {s.eyebrow}
                         </div>
                     )}
-                    <h1 data-hero-line className={cn('font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] sm:text-[56px] lg:text-[72px]', light ? 'text-onyx' : 'text-white')}>
+                    <h1 data-hero-line className={cn('font-display text-[32px] font-semibold leading-[1.04] tracking-[-0.035em] sm:text-[44px] lg:text-[56px]', light ? 'text-onyx' : 'text-white')}>
                         {s.title}
                     </h1>
                     {s.subtitle && (
-                        <p data-hero-line className={cn('mt-6 max-w-[520px] text-[16px] leading-relaxed md:text-lg', light ? 'text-carbon' : 'text-white/70')}>
+                        <p data-hero-line className={cn('mt-4 max-w-[500px] text-[14.5px] leading-relaxed md:text-[16px]', light ? 'text-carbon' : 'text-white/70')}>
                             {s.subtitle}
                         </p>
                     )}
-                    <div data-hero-line className="mt-9 flex flex-wrap gap-3">
+                    <div data-hero-line className="mt-7 flex flex-wrap gap-2.5">
                         {s.button_text && s.button_link && (
-                            <Link href={s.button_link} className="group inline-flex h-13 items-center gap-2 rounded-full bg-violet-600 px-7 text-[15px] font-semibold text-white shadow-glow transition hover:bg-violet-500">
+                            <Link href={s.button_link} className="group inline-flex h-11 items-center gap-2 rounded-full bg-violet-600 px-6 text-[14px] font-semibold text-white shadow-glow transition hover:bg-violet-500">
                                 {s.button_text}
                                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                             </Link>
                         )}
                         {s.button2_text && s.button2_link && (
-                            <Link href={s.button2_link} className={cn('inline-flex h-13 items-center rounded-full px-7 text-[15px] font-semibold ring-1 transition', light ? 'text-onyx ring-onyx/20 hover:bg-white' : 'text-white ring-white/25 hover:bg-white/10')}>
+                            <Link href={s.button2_link} className={cn('inline-flex h-11 items-center rounded-full px-6 text-[14px] font-semibold ring-1 transition', light ? 'text-onyx ring-onyx/20 hover:bg-white' : 'text-white ring-white/25 hover:bg-white/10')}>
                                 {s.button2_text}
                             </Link>
                         )}
@@ -111,7 +111,7 @@ export function Hero({ slides }: { slides: any[] }) {
             </div>
 
             {slides.length > 1 && (
-                <div className="container-x absolute inset-x-0 bottom-8 flex items-center justify-between gap-6">
+                <div className="container-x absolute inset-x-0 bottom-5 flex items-center justify-between gap-6">
                     <div className="flex flex-1 gap-2.5 md:max-w-md">
                         {slides.map((sl, i) => (
                             <button key={sl.id} onClick={() => setIndex(i)} className="group relative h-8 flex-1" aria-label={`Slide ${i + 1}`}>
@@ -128,10 +128,10 @@ export function Hero({ slides }: { slides: any[] }) {
                         ))}
                     </div>
                     <div className="hidden gap-2 md:flex">
-                        <button onClick={() => setIndex((index - 1 + slides.length) % slides.length)} className="flex size-12 items-center justify-center rounded-full text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-onyx" aria-label="Previous slide">
+                        <button onClick={() => setIndex((index - 1 + slides.length) % slides.length)} className="flex size-10 items-center justify-center rounded-full text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-onyx" aria-label="Previous slide">
                             <ArrowLeft className="size-5" />
                         </button>
-                        <button onClick={() => setIndex((index + 1) % slides.length)} className="flex size-12 items-center justify-center rounded-full text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-onyx" aria-label="Next slide">
+                        <button onClick={() => setIndex((index + 1) % slides.length)} className="flex size-10 items-center justify-center rounded-full text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-onyx" aria-label="Next slide">
                             <ArrowRight className="size-5" />
                         </button>
                     </div>
@@ -178,22 +178,30 @@ export function CategoryTiles({ section }: { section: HomeSection }) {
     const cats = section.categories ?? [];
     if (!cats.length) return null;
     return (
-        <section className="py-14 md:py-20">
+        <section className="py-10 md:py-14">
             <div className="container-x">
                 <Reveal>
-                    <SectionHeading eyebrow="Categories" title={section.title ?? 'Shop by category'} subtitle={section.subtitle} link={route('shop')} linkLabel="All products" />
+                    <SectionHeading eyebrow="Categories" title={section.title ?? 'Shop by category'} subtitle={section.subtitle} link={route('shop')} linkLabel="All products" className="mb-6 md:mb-7" />
                 </Reveal>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 xl:grid-cols-4">
+                <div className="-mx-4 flex snap-x scroll-px-4 gap-2.5 overflow-x-auto px-4 pb-1 scrollbar-none sm:mx-0 sm:grid sm:grid-cols-4 sm:gap-3 sm:overflow-visible sm:px-0 lg:grid-cols-8">
                     {cats.slice(0, 8).map((c, i) => (
-                        <Reveal key={c.slug} delay={i * 60}>
-                            <Link href={route('category.show', c.slug)} className="group relative flex aspect-[4/5] flex-col overflow-hidden rounded-3xl bg-porcelain p-5 transition-all duration-500 hover:bg-violet-50 md:aspect-[5/6] md:p-6">
-                                <span className="relative z-10 text-[15px] font-semibold md:text-lg">{c.name}</span>
-                                <span className="relative z-10 mt-1 inline-flex items-center gap-1 text-[12.5px] font-medium text-slate transition group-hover:text-violet-700">
-                                    Shop now <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                        <Reveal key={c.slug} delay={i * 45} className="w-[30%] shrink-0 snap-start sm:w-auto">
+                            <Link
+                                href={route('category.show', c.slug)}
+                                className="group relative flex h-full flex-col items-center rounded-2xl bg-porcelain/80 p-2.5 pb-3.5 ring-1 ring-transparent transition-all duration-500 ease-[var(--ease-premium)] hover:-translate-y-1 hover:bg-white hover:shadow-lift hover:ring-violet-200"
+                            >
+                                <span className="relative flex aspect-[5/4] w-full items-center justify-center overflow-hidden rounded-xl bg-[radial-gradient(circle_at_50%_65%,#ffffff_0%,rgba(255,255,255,0)_70%)]">
+                                    <span className="absolute inset-x-6 bottom-2 h-3 rounded-full bg-violet-600/0 blur-md transition duration-500 group-hover:bg-violet-600/20" />
+                                    {c.image_url ? (
+                                        <img src={c.image_url} alt="" loading="lazy" className="relative h-[78%] w-[78%] object-contain transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.08]" />
+                                    ) : (
+                                        <span className="flex size-12 items-center justify-center rounded-2xl bg-violet-100 font-display text-lg font-semibold text-violet-700">{c.name[0]}</span>
+                                    )}
                                 </span>
-                                {c.image_url && (
-                                    <img src={c.image_url} alt="" loading="lazy" className="absolute inset-x-0 bottom-0 mx-auto h-[68%] w-[85%] object-contain object-bottom transition-transform duration-700 ease-[var(--ease-premium)] group-hover:-translate-y-2 group-hover:scale-[1.04]" />
-                                )}
+                                <span className="mt-2.5 line-clamp-2 text-center text-[12.5px] font-semibold leading-tight tracking-[-0.01em] sm:line-clamp-1 md:text-[13.5px]">{c.name}</span>
+                                <span className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium text-slate transition group-hover:text-violet-700">
+                                    Shop <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+                                </span>
                             </Link>
                         </Reveal>
                     ))}
@@ -258,37 +266,37 @@ export function BrandSpotlight({ section }: { section: HomeSection }) {
     const features: { title: string; text: string }[] = s.features ?? [];
 
     return (
-        <section ref={root} className="relative overflow-hidden bg-noir py-20 text-white md:py-28">
+        <section ref={root} className="relative overflow-hidden bg-noir py-12 text-white md:py-16">
             <div className="bg-grid pointer-events-none absolute inset-0 opacity-60" />
-            <div className="container-x relative grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+            <div className="container-x relative grid items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
                 <div className="relative order-2 lg:order-1">
                     <div className="absolute inset-[10%] rounded-full bg-violet-600/30 blur-[90px]" />
-                    {s.image_url && <img data-spot-img src={s.image_url} alt={section.brand?.name ?? ''} loading="lazy" className="relative mx-auto w-full max-w-[560px] rounded-[2rem]" />}
+                    {s.image_url && <img data-spot-img src={s.image_url} alt={section.brand?.name ?? ''} loading="lazy" className="relative mx-auto aspect-[5/4] w-full max-w-[420px] rounded-[1.75rem] object-cover lg:max-w-[460px]" />}
                 </div>
                 <div className="order-1 lg:order-2">
                     {s.eyebrow && (
-                        <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-gold/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold ring-1 ring-gold/30">
+                        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-gold/10 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.2em] text-gold ring-1 ring-gold/30">
                             <span className="size-1.5 rounded-full bg-gold" /> {s.eyebrow}
                         </div>
                     )}
-                    <h2 className="font-display text-[36px] font-semibold leading-[1.04] tracking-[-0.03em] md:text-[54px]">
+                    <h2 className="font-display text-[28px] font-semibold leading-[1.06] tracking-[-0.03em] md:text-[40px]">
                         <span className="text-gradient">{section.title}</span>
                     </h2>
-                    {section.subtitle && <p className="mt-4 text-lg text-white/80">{section.subtitle}</p>}
-                    {s.text && <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-white/55">{s.text}</p>}
+                    {section.subtitle && <p className="mt-3 text-[15px] text-white/80 md:text-base">{section.subtitle}</p>}
+                    {s.text && <p className="mt-3 max-w-2xl text-[13.5px] leading-relaxed text-white/55">{s.text}</p>}
                     {features.length > 0 && (
-                        <div data-spot-features className="mt-10 grid gap-px overflow-hidden rounded-3xl bg-white/10 ring-1 ring-white/10 sm:grid-cols-2">
+                        <div data-spot-features className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10 ring-1 ring-white/10 xl:grid-cols-4">
                             {features.map((f, i) => (
-                                <div key={i} data-spot-feature className="bg-onyx/60 p-6 backdrop-blur">
-                                    <div className="tabular mb-3 font-display text-sm font-semibold text-violet-300">0{i + 1}</div>
-                                    <div className="text-[15px] font-semibold">{f.title}</div>
-                                    <div className="mt-1.5 text-[13px] leading-relaxed text-white/50">{f.text}</div>
+                                <div key={i} data-spot-feature className="bg-onyx/60 p-4 backdrop-blur">
+                                    <div className="tabular mb-1.5 font-display text-xs font-semibold text-violet-300">0{i + 1}</div>
+                                    <div className="text-[13.5px] font-semibold leading-snug">{f.title}</div>
+                                    <div className="mt-1 text-[12px] leading-relaxed text-white/50">{f.text}</div>
                                 </div>
                             ))}
                         </div>
                     )}
                     {s.button_text && s.button_link && (
-                        <Link href={s.button_link} className="group mt-10 inline-flex h-13 items-center gap-2 rounded-full bg-white px-7 text-[15px] font-semibold text-onyx transition hover:bg-violet-100">
+                        <Link href={s.button_link} className="group mt-6 inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-[14px] font-semibold text-onyx transition hover:bg-violet-100">
                             {s.button_text} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                         </Link>
                     )}
@@ -372,7 +380,7 @@ export function TradeCta({ section }: { section: HomeSection }) {
                             </div>
                         )}
                         <h2 className="font-display text-3xl font-semibold leading-[1.08] md:text-[46px]">{section.title}</h2>
-                        {section.subtitle && <p className="mt-4 text-lg text-white/80">{section.subtitle}</p>}
+                        {section.subtitle && <p className="mt-3 text-[15px] text-white/80 md:text-base">{section.subtitle}</p>}
                         {s.text && <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-white/55">{s.text}</p>}
                         <ul className="mt-8 grid gap-3 sm:grid-cols-2">
                             {perks.map((p) => (
