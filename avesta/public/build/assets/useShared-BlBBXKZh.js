@@ -1,0 +1,1 @@
+import{d as e}from"./utils-D7I3LLWA.js";function t(){return e().props}export{t};

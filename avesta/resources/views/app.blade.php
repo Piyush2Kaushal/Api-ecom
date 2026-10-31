@@ -13,6 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0A0A0F">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title inertia>{{ $title }}</title>
     <meta name="description" content="{{ \Illuminate\Support\Str::limit(strip_tags((string) $description), 300) }}">
     @if($isAdmin)<meta name="robots" content="noindex, nofollow">@endif

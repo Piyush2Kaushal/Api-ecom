@@ -355,7 +355,7 @@ export function Header() {
         <>
             <AnnouncementBar />
             <header className={cn('sticky top-0 z-40 transition-all duration-300', scrolled || mega ? 'glass border-b border-mist/80 shadow-[0_1px_0_rgb(10_10_15/0.02)]' : 'border-b border-transparent bg-white')} onMouseLeave={leave}>
-                <div className="container-x flex h-[72px] items-center gap-6">
+                <div className="container-x flex h-16 items-center gap-3 sm:h-[72px] sm:gap-6">
                     <button onClick={() => setMobile(true)} className="-ml-2 rounded-xl p-2 lg:hidden" aria-label="Open menu">
                         <Menu className="size-6" />
                     </button>
@@ -409,7 +409,7 @@ export function Header() {
 }
 
 function IconBtn({ children, label, href, onClick, className }: { children: React.ReactNode; label: string; href?: string; onClick?: () => void; className?: string }) {
-    const cls = cn('relative flex size-11 items-center justify-center rounded-full text-carbon transition hover:bg-porcelain hover:text-onyx', className);
+    const cls = cn('relative flex size-10 sm:size-11 items-center justify-center rounded-full text-carbon transition hover:bg-porcelain hover:text-onyx', className);
     return href ? (
         <Link href={href} className={cls} aria-label={label}>
             {children}

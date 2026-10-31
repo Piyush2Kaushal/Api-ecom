@@ -86,7 +86,7 @@ abstract class ResourceController extends Controller
     public static function routes(): void
     {
         $slug = static::slug();
-        $name = 'admin.'.str_replace('-', '_', $slug);
+        $name = str_replace('-', '_', $slug);
         Route::get($slug, [static::class, 'index'])->name($name.'.index');
         Route::post($slug, [static::class, 'store'])->name($name.'.store');
         Route::post($slug.'/reorder', [static::class, 'reorder'])->name($name.'.reorder');

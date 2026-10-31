@@ -33,10 +33,10 @@ class DashboardController extends Controller
         $chart = $days->map(fn ($d) => [
             'date' => $d,
             'label' => \Carbon\Carbon::parse($d)->format('d M'),
-            'retailer' => round((float) optional($daily->get($d))->where('customer_tier', 'retailer')->sum('total'), 2),
-            'trader' => round((float) optional($daily->get($d))->where('customer_tier', 'trader')->sum('total'), 2),
-            'wholesaler' => round((float) optional($daily->get($d))->where('customer_tier', 'wholesaler')->sum('total'), 2),
-            'orders' => (int) optional($daily->get($d))->sum('orders'),
+            'retailer' => round((float) ($daily->get($d) ?? collect())->where('customer_tier', 'retailer')->sum('total'), 2),
+            'trader' => round((float) ($daily->get($d) ?? collect())->where('customer_tier', 'trader')->sum('total'), 2),
+            'wholesaler' => round((float) ($daily->get($d) ?? collect())->where('customer_tier', 'wholesaler')->sum('total'), 2),
+            'orders' => (int) ($daily->get($d) ?? collect())->sum('orders'),
         ]);
 
         $topProducts = OrderItem::whereIn('order_id', Order::paid()->where('paid_at', '>=', now()->subDays(30))->select('id'))

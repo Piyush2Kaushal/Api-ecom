@@ -90,7 +90,7 @@ export function Help({ children }: { children?: ReactNode }) {
 const inputBase =
     'block w-full rounded-xl border border-mist bg-white px-3.5 text-[15px] text-onyx placeholder:text-ash transition focus:border-violet-500 focus:outline-none focus:ring-4 focus:ring-violet-500/10 disabled:bg-porcelain disabled:text-slate sm:text-sm';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix'> {
     label?: ReactNode;
     error?: string;
     help?: ReactNode;
@@ -220,7 +220,7 @@ export function Checkbox({
                     {checked && <Check className="size-3" strokeWidth={3} />}
                 </span>
                 <input type="checkbox" className="sr-only" checked={checked} onChange={(e) => onChange(e.target.checked)} />
-                <span className="text-sm leading-snug text-carbon">
+                <span className="flex-1 text-sm leading-snug text-carbon">
                     {label}
                     {description && <span className="mt-0.5 block text-xs text-slate">{description}</span>}
                 </span>

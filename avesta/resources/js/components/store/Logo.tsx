@@ -22,13 +22,13 @@ export function Logo({ tone = 'dark', className, withTagline = true }: { tone?: 
                 <img src={img} alt={settings.site_name} className="h-9 w-auto" />
             ) : (
                 <>
-                    <LogoMark className="size-9 shrink-0" tone={tone} />
+                    <LogoMark className="size-8 shrink-0 sm:size-9" tone={tone} />
                     <span className="leading-none">
-                        <span className={cn('block font-display text-[21px] font-semibold tracking-[0.16em]', tone === 'dark' ? 'text-onyx' : 'text-white')}>
+                        <span className={cn('block font-display text-[18px] sm:text-[21px] font-semibold tracking-[0.16em]', tone === 'dark' ? 'text-onyx' : 'text-white')}>
                             {settings.site_name?.toUpperCase()}
                         </span>
                         {withTagline && (
-                            <span className={cn('mt-1 block text-[8.5px] font-semibold uppercase tracking-[0.26em]', tone === 'dark' ? 'text-slate' : 'text-violet-300')}>
+                            <span className={cn('mt-1 hidden text-[8.5px] sm:block font-semibold uppercase tracking-[0.26em]', tone === 'dark' ? 'text-slate' : 'text-violet-300')}>
                                 {settings.site_tagline}
                             </span>
                         )}

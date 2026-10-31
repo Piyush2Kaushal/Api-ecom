@@ -14,7 +14,6 @@
 /.zed
 /auth.json
 /node_modules
-/public/build
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
@@ -26,3 +25,5 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 /database/database.sqlite
+/public/uploads
+!/public/uploads/.gitkeep

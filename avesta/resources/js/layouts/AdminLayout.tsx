@@ -69,6 +69,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     const { url } = usePage();
     const [open, setOpen] = useState(false);
     useEffect(() => setOpen(false), [url]);
+    useEffect(() => {
+        const h = document.querySelector('main h1')?.textContent;
+        document.title = `${h ? h + ' · ' : ''}${settings.site_name} Admin`;
+    }, [url, settings.site_name]);
 
     const path = url.split('?')[0];
     const isActive = (item: NavItem) => {

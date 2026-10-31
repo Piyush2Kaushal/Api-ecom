@@ -134,7 +134,7 @@ class CheckoutController extends Controller
     public function success(Request $request, string $number)
     {
         $order = Order::where('number', $number)->firstOrFail();
-        $owner = ($request->user('web') && $request->user('web')->id === $order->user_id) || $request->hasValidSignature(false)
+        $owner = ($request->user('web') && $request->user('web')->id === $order->user_id) || $request->hasValidSignature()
             || ($request->filled('session_id') && $request->query('session_id') === $order->stripe_session_id);
         abort_unless($owner, 403);
 
