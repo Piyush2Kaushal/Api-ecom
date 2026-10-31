@@ -27,3 +27,4 @@ Thumbs.db
 /database/database.sqlite
 /public/uploads
 !/public/uploads/.gitkeep
+/deliverables

@@ -45,7 +45,7 @@ class PageController extends Controller
         ]);
         ContactEnquiry::create($data + ['user_id' => auth('web')->id()]);
         Notifier::admin(new BrandedMail(
-            subjectLine: 'New enquiry — '.($data['subject'] ?: $data['name']),
+            subjectLine: 'New enquiry — '.(($data['subject'] ?? null) ?: $data['name']),
             heading: 'New contact enquiry',
             lines: [$data['message']],
             rows: [['Name', $data['name']], ['Email', $data['email']], ['Phone', $data['phone'] ?? '—'], ['Company', $data['company'] ?? '—']],

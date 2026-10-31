@@ -13,7 +13,7 @@ class CustomerVerified
         if (! $user) {
             return redirect()->guest(route('login'));
         }
-        if (! $user->is_active) {
+        if (($user->is_active ?? true) === false) {
             auth('web')->logout();
 
             return redirect()->route('login')->with('error', 'Your account has been disabled. Please contact us.');

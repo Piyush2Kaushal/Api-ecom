@@ -170,7 +170,7 @@ class ProductController extends Controller
 
         return DB::transaction(function () use ($data, $product) {
             $fields = collect($data)->except(['extra_category_ids', 'images', 'specs', 'files', 'variants'])->all();
-            $fields['slug'] = Str::slug($fields['slug'] ?: $fields['name']);
+            $fields['slug'] = Str::slug(($fields['slug'] ?? null) ?: $fields['name']);
             if (Product::where('slug', $fields['slug'])->where('id', '!=', $product->id ?? 0)->exists()) {
                 $fields['slug'] .= '-'.Str::lower(Str::random(4));
             }

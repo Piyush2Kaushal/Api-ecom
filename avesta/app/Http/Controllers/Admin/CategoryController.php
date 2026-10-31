@@ -55,7 +55,7 @@ class CategoryController extends Controller
         if ($depth > Category::MAX_DEPTH) {
             throw ValidationException::withMessages(['parent_id' => 'Categories can be at most '.Category::MAX_DEPTH.' levels deep.']);
         }
-        $data['slug'] = $this->uniqueSlug($data['slug'] ?: $data['name']);
+        $data['slug'] = $this->uniqueSlug(($data['slug'] ?? null) ?: $data['name']);
         $data['depth'] = $depth;
         $data['sort_order'] = $data['sort_order'] ?? ((int) Category::where('parent_id', $data['parent_id'] ?? null)->max('sort_order') + 1);
         Category::create($data);
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         if ($depth + $category->subtreeHeight() > Category::MAX_DEPTH) {
             throw ValidationException::withMessages(['parent_id' => 'This move would make the tree deeper than '.Category::MAX_DEPTH.' levels.']);
         }
-        $data['slug'] = $data['slug'] ? Str::slug($data['slug']) : $category->slug;
+        $data['slug'] = ! empty($data['slug']) ? Str::slug($data['slug']) : $category->slug;
         DB::transaction(function () use ($category, $data, $depth) {
             $shift = $depth - $category->depth;
             $category->update($data + ['depth' => $depth]);
