@@ -17,7 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->web(prepend: [HandleRedirects::class], append: [HandleInertiaRequests::class]);
+        // Redirects run for every request, so old multi-segment URLs (e.g. Zoho /products/…/…) are caught before a 404.
+        $middleware->prepend(HandleRedirects::class);
+        $middleware->web(append: [HandleInertiaRequests::class]);
         $middleware->validateCsrfTokens(except: ['stripe/webhook']);
         $middleware->alias([
             'admin' => AdminAuthenticate::class,
