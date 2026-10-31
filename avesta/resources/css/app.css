@@ -1,0 +1,179 @@
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/inter-tight';
+@import 'tailwindcss';
+
+@source '../views';
+@source '../js';
+
+/* ------------------------------------------------------------------
+   Avesta design tokens
+   White · Avesta Violet · Onyx, with a restrained Champagne Gold accent
+------------------------------------------------------------------- */
+@theme {
+    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-display: 'Inter Tight Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+    --color-violet-50: #f4f1ff;
+    --color-violet-100: #ebe5ff;
+    --color-violet-200: #d6cbff;
+    --color-violet-300: #b9a6ff;
+    --color-violet-400: #8b6cff;
+    --color-violet-500: #6d42f0;
+    --color-violet-600: #5b2bd9;
+    --color-violet-700: #4a1fb8;
+    --color-violet-800: #3a1a8f;
+    --color-violet-900: #24104f;
+    --color-violet-950: #1e0b4b;
+
+    --color-onyx: #0a0a0f;
+    --color-graphite: #16161d;
+    --color-carbon: #22222b;
+    --color-porcelain: #f7f7f9;
+    --color-mist: #e7e7ec;
+    --color-fog: #d5d5dd;
+    --color-slate: #6b6b78;
+    --color-ash: #9a9aa5;
+    --color-gold: #c8a55a;
+    --color-gold-soft: #f6efdf;
+    --color-success: #12a150;
+    --color-danger: #e5484d;
+    --color-warning: #d98a1c;
+
+    --radius-xl: 0.875rem;
+    --radius-2xl: 1.125rem;
+    --radius-3xl: 1.5rem;
+
+    --shadow-soft: 0 1px 2px rgb(10 10 15 / 0.04), 0 4px 16px -4px rgb(10 10 15 / 0.08);
+    --shadow-lift: 0 2px 6px rgb(10 10 15 / 0.05), 0 18px 40px -16px rgb(36 16 79 / 0.28);
+    --shadow-glow: 0 10px 40px -10px rgb(91 43 217 / 0.55);
+
+    --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --animate-fade-up: fade-up 0.6s var(--ease-premium) both;
+    --animate-shimmer: shimmer 1.6s linear infinite;
+
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: none; }
+    }
+    @keyframes shimmer {
+        from { background-position: -400px 0; }
+        to { background-position: 400px 0; }
+    }
+}
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-rendering: optimizeLegibility;
+        scroll-padding-top: 7rem;
+    }
+    body {
+        @apply bg-white font-sans text-onyx;
+        font-feature-settings: 'cv11', 'ss01', 'ss03';
+    }
+    h1, h2, h3, h4, .font-display {
+        font-family: var(--font-display);
+        letter-spacing: -0.022em;
+    }
+    ::selection {
+        background: var(--color-violet-600);
+        color: white;
+    }
+    :focus-visible {
+        outline: 2px solid var(--color-violet-500);
+        outline-offset: 2px;
+        border-radius: 6px;
+    }
+    button, [role='button'] {
+        cursor: pointer;
+    }
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type='number'] {
+        -moz-appearance: textfield;
+    }
+}
+
+@layer components {
+    .container-x {
+        @apply mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8;
+    }
+    .tabular {
+        font-variant-numeric: tabular-nums;
+    }
+    .eyebrow {
+        @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-violet-600;
+    }
+    .glass {
+        @apply bg-white/80 backdrop-blur-xl backdrop-saturate-150;
+    }
+    .text-gradient {
+        background: linear-gradient(100deg, #ffffff 0%, #d6cbff 45%, #8b6cff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .bg-noir {
+        background:
+            radial-gradient(60% 80% at 80% 40%, rgb(91 43 217 / 0.35), transparent 70%),
+            radial-gradient(40% 50% at 10% 100%, rgb(139 108 255 / 0.12), transparent 70%),
+            linear-gradient(135deg, #07070b 0%, #110a24 60%, #1e0b4b 100%);
+    }
+    .bg-grid {
+        background-image: linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+        background-size: 56px 56px;
+    }
+    .skeleton {
+        background: linear-gradient(90deg, #f0f0f3 0%, #f8f8fa 50%, #f0f0f3 100%);
+        background-size: 800px 100%;
+        animation: var(--animate-shimmer);
+    }
+    .scrollbar-none {
+        scrollbar-width: none;
+    }
+    .scrollbar-none::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-fog) transparent;
+    }
+
+    /* Rich text (CMS pages, product descriptions) */
+    .prose-avesta {
+        @apply text-[15px] leading-7 text-carbon;
+    }
+    .prose-avesta h2 { @apply mt-10 mb-3 text-2xl font-semibold text-onyx; }
+    .prose-avesta h3 { @apply mt-8 mb-2 text-lg font-semibold text-onyx; }
+    .prose-avesta p { @apply my-4; }
+    .prose-avesta ul { @apply my-4 list-disc space-y-1.5 pl-5 marker:text-violet-500; }
+    .prose-avesta ol { @apply my-4 list-decimal space-y-1.5 pl-5; }
+    .prose-avesta a { @apply font-medium text-violet-600 underline decoration-violet-200 underline-offset-4 hover:decoration-violet-600; }
+    .prose-avesta strong { @apply font-semibold text-onyx; }
+    .prose-avesta img { @apply my-6 rounded-2xl; }
+    .prose-avesta blockquote { @apply my-6 border-l-2 border-violet-500 pl-4 italic text-slate; }
+    .prose-avesta table { @apply my-6 w-full text-sm; }
+    .prose-avesta td, .prose-avesta th { @apply border-b border-mist py-2 pr-4 text-left; }
+    .prose-avesta > :first-child { @apply mt-0; }
+
+    /* TipTap editor */
+    .tiptap { @apply min-h-[220px] px-4 py-3 outline-none; }
+    .tiptap p.is-editor-empty:first-child::before {
+        content: attr(data-placeholder);
+        @apply pointer-events-none float-left h-0 text-ash;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

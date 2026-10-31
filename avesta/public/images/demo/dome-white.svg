@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800"><defs>
+<linearGradient id="w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#EEEEF2"/><stop offset="1" stop-color="#C9C9D2"/></linearGradient>
+<linearGradient id="wside" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#D8D8E0"/><stop offset=".35" stop-color="#FFFFFF"/><stop offset="1" stop-color="#BDBDC8"/></linearGradient>
+<linearGradient id="k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A3A44"/><stop offset=".6" stop-color="#17171C"/><stop offset="1" stop-color="#0A0A0E"/></linearGradient>
+<linearGradient id="kside" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#101014"/><stop offset=".4" stop-color="#3A3A45"/><stop offset="1" stop-color="#0C0C10"/></linearGradient>
+<radialGradient id="lens" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#8B6CFF"/><stop offset=".18" stop-color="#3B1A8A"/><stop offset=".45" stop-color="#0E0B1C"/><stop offset="1" stop-color="#000"/></radialGradient>
+<radialGradient id="glass" cx=".5" cy=".35" r=".75"><stop offset="0" stop-color="#2A2440" stop-opacity=".95"/><stop offset=".6" stop-color="#0B0A12" stop-opacity=".98"/><stop offset="1" stop-color="#000"/></radialGradient>
+<radialGradient id="shadow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs><ellipse cx="400" cy="640" rx="250" ry="34" fill="url(#shadow)"/>
+<path d="M150 470 Q150 430 190 420 L610 420 Q650 430 650 470 L650 500 Q650 530 610 535 L190 535 Q150 530 150 500Z" fill="url(#wside)"/>
+<ellipse cx="400" cy="425" rx="252" ry="40" fill="url(#w)"/>
+<path d="M200 430 Q200 210 400 205 Q600 210 600 430Z" fill="url(#glass)"/>
+<path d="M235 400 Q240 250 395 240" stroke="#fff" stroke-opacity=".35" stroke-width="10" fill="none" stroke-linecap="round"/>
+<g transform="translate(0 0)"><circle cx="400" cy="330" r="70" fill="#0A0A0E"/><circle cx="400" cy="330" r="57.4" fill="url(#lens)"/>
+<circle cx="400" cy="330" r="25.2" fill="#05040A"/><circle cx="380.4" cy="309.0" r="9.8" fill="#fff" opacity=".55"/>
+<circle cx="415.4" cy="344.0" r="3.5" fill="#B9A6FF" opacity=".7"/></g>
+<circle cx="300" cy="350" r="9" fill="#2a2a33"/><circle cx="500" cy="350" r="9" fill="#2a2a33"/>
+<rect x="360" y="495" width="80" height="6" rx="3" fill="#5B2BD9"/></svg>
