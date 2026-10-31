@@ -190,11 +190,11 @@ function PremiumCard({ product, dark, href, wished, state, quickAdd, toggleWish,
     );
 }
 
-export function ProductGrid({ products, className }: { products: Card[]; className?: string }) {
+export function ProductGrid({ products, variant = 'default', className }: { products: Card[]; variant?: 'default' | 'premium'; className?: string }) {
     return (
-        <div className={cn('grid grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-6 md:grid-cols-3 xl:grid-cols-4', className)}>
+        <div className={cn('grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4', variant === 'premium' ? 'gap-3 sm:gap-4 lg:gap-5' : 'gap-x-4 gap-y-9 sm:gap-x-6', className)}>
             {products.map((p) => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard key={p.id} product={p} variant={variant} />
             ))}
         </div>
     );

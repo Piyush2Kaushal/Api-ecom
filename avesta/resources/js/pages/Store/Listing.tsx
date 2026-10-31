@@ -40,7 +40,7 @@ function FilterGroup({ title, children, defaultOpen = true }: { title: string; c
     const [open, setOpen] = useState(defaultOpen);
     return (
         <div className="border-b border-mist py-5">
-            <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between text-left text-[13px] font-semibold uppercase tracking-[0.1em]">
+            <button onClick={() => setOpen(!open)} className="flex w-full items-center justify-between text-left text-[12px] font-semibold uppercase tracking-[0.14em]">
                 {title}
                 <ChevronDown className={cn('size-4 text-slate transition', open && 'rotate-180')} />
             </button>
@@ -151,25 +151,39 @@ export default function Listing({ context, products, pagination, facets, filters
 
     return (
         <>
-            <section className={cn('relative overflow-hidden', dark ? 'bg-noir text-white' : 'border-b border-mist bg-porcelain/60')}>
+            <section className={cn('relative overflow-hidden', dark ? 'bg-noir text-white' : 'border-b border-mist bg-white')}>
                 {dark && context.banner && <img src={context.banner} alt="" className="absolute inset-0 size-full object-cover opacity-80" />}
                 {dark && <div className="absolute inset-0 bg-gradient-to-r from-onyx via-onyx/70 to-transparent" />}
-                <div className={cn('container-x relative', dark ? 'py-16 md:py-24' : 'py-10 md:py-14')}>
+                {!dark && (
+                    <>
+                        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_120%_at_100%_0%,rgb(91_43_217/0.10),transparent_60%),radial-gradient(35%_90%_at_0%_100%,rgb(200_165_90/0.08),transparent_70%)]" />
+                        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(10_10_15/0.035)_1px,transparent_1px),linear-gradient(90deg,rgb(10_10_15/0.035)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:linear-gradient(to_left,black,transparent_70%)]" />
+                    </>
+                )}
+                <div className={cn('container-x relative', dark ? 'py-16 md:py-24' : 'py-6 md:py-8')}>
                     <Breadcrumbs items={crumbs} tone={dark ? 'dark' : 'light'} />
-                    <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
+                    <div className={cn('flex flex-wrap items-end justify-between gap-x-6 gap-y-3', dark ? 'mt-5' : 'mt-3')}>
                         <div className="max-w-2xl">
                             {dark && <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-gold/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-gold ring-1 ring-gold/30">Exclusive brand</div>}
-                            <h1 className={cn('font-display font-semibold tracking-tight', dark ? 'text-[44px] leading-none md:text-[64px]' : 'text-[34px] md:text-[44px]')}>{context.title}</h1>
-                            {context.subtitle && <p className={cn('mt-3 text-[15px] leading-relaxed md:text-base', dark ? 'text-white/65' : 'text-slate')}>{context.subtitle}</p>}
+                            <div className="flex flex-wrap items-center gap-3">
+                                <h1 className={cn('font-display font-semibold tracking-tight', dark ? 'text-[44px] leading-none md:text-[64px]' : 'text-[28px] leading-tight md:text-[36px]')}>{context.title}</h1>
+                                {!dark && (
+                                    <span className="tabular inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-2.5 py-1 text-[12px] font-semibold text-violet-700 ring-1 ring-violet-100">
+                                        <span className="size-1.5 rounded-full bg-violet-500" />
+                                        {pagination.total} products
+                                    </span>
+                                )}
+                            </div>
+                            {context.subtitle && <p className={cn('mt-2 text-[14.5px] leading-relaxed md:text-[15px]', dark ? 'text-white/65' : 'text-slate')}>{context.subtitle}</p>}
                             {dark && context.description && context.description !== context.subtitle && <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/50">{context.description}</p>}
                         </div>
-                        <div className={cn('tabular text-sm', dark ? 'text-white/60' : 'text-slate')}>{pagination.total} products</div>
+                        {dark && <div className="tabular text-sm text-white/60">{pagination.total} products</div>}
                     </div>
                     {!!context.children?.length && (
-                        <div className="-mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-1 scrollbar-none">
+                        <div className="-mx-4 mt-5 flex gap-2 overflow-x-auto px-4 py-1.5 scrollbar-none">
                             {context.children.map((c) => (
-                                <Link key={c.slug} href={route('category.show', c.slug)} className="flex shrink-0 items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-4 text-[13.5px] font-medium shadow-soft ring-1 ring-mist transition hover:ring-violet-300">
-                                    <span className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-porcelain">{c.image_url && <img src={c.image_url} alt="" className="size-6 object-contain" />}</span>
+                                <Link key={c.slug} href={route('category.show', c.slug)} className="group flex shrink-0 items-center gap-2.5 rounded-full bg-white py-1 pl-1 pr-4 text-[13px] font-medium shadow-[0_1px_2px_rgb(10_10_15/0.05)] ring-1 ring-mist transition duration-300 hover:text-violet-700 hover:shadow-soft hover:ring-violet-300">
+                                    <span className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-white to-porcelain ring-1 ring-mist">{c.image_url && <img src={c.image_url} alt="" className="size-6 object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-110" />}</span>
                                     {c.name}
                                 </Link>
                             ))}
@@ -178,13 +192,13 @@ export default function Listing({ context, products, pagination, facets, filters
                 </div>
             </section>
 
-            <div className="container-x py-8 md:py-10">
-                <div className="grid gap-10 lg:grid-cols-[250px_1fr]">
+            <div className="container-x py-6 md:py-8">
+                <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
                     <aside className="hidden lg:block">
-                        <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pr-2 scrollbar-thin">{filterPanel}</div>
+                        <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto rounded-[20px] bg-white px-5 py-1 ring-1 ring-mist scrollbar-none [&>div>div:last-child]:border-b-0">{filterPanel}</div>
                     </aside>
                     <div>
-                        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+                        <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-porcelain/70 px-3 py-2 ring-1 ring-mist/70">
                             <div className="flex flex-wrap items-center gap-2">
                                 <Button variant="outline" size="sm" className="lg:hidden" onClick={() => setMobileOpen(true)}>
                                     <SlidersHorizontal className="size-4" /> Filters {chips.length > 0 && <span className="tabular rounded-full bg-violet-600 px-1.5 text-[10px] text-white">{chips.length}</span>}
@@ -198,6 +212,11 @@ export default function Listing({ context, products, pagination, facets, filters
                                     <button onClick={() => apply({ brand: [], spec: {}, min: '', max: '', in_stock: false, sale: false })} className="text-xs font-semibold text-slate underline underline-offset-2">
                                         Clear all
                                     </button>
+                                )}
+                                {chips.length === 0 && !filters.q && (
+                                    <span className="tabular hidden pl-1 text-[13px] text-slate lg:inline">
+                                        Showing <b className="font-semibold text-onyx">{pagination.from ?? 0}–{pagination.to ?? 0}</b> of {pagination.total}
+                                    </span>
                                 )}
                                 {filters.q && <span className="text-sm text-slate">for “{filters.q}”</span>}
                             </div>
@@ -217,7 +236,7 @@ export default function Listing({ context, products, pagination, facets, filters
                         {products.length === 0 ? (
                             <EmptyState icon={<PackageSearch className="size-6" />} title="No products found" text="Try removing a filter or searching for something else." action={<Button variant="outline" href={route('shop')}>Browse all products</Button>} />
                         ) : (
-                            <ProductGrid products={products} className="xl:grid-cols-3 2xl:grid-cols-4" />
+                            <ProductGrid products={products} variant="premium" className="xl:grid-cols-4" />
                         )}
                         <div className="mt-12 flex flex-col items-center gap-3">
                             <Pagination links={pagination.links} />
