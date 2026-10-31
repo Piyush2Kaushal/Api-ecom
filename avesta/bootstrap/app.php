@@ -29,8 +29,18 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->respond(function ($response, $e, Request $request) {
             $status = $response->getStatusCode();
-            if (! app()->hasDebugModeEnabled() && in_array($status, [403, 404, 500, 503], true) && ! $request->expectsJson()) {
-                return Inertia::render('Store/Error', ['status' => $status])->toResponse($request)->setStatusCode($status);
+            if (! app()->hasDebugModeEnabled() && ! $request->expectsJson()) {
+                // Server errors use a plain page that needs no database (works even if MySQL is down).
+                if ($status >= 500) {
+                    return response()->view('errors.500', ['code' => $status], $status);
+                }
+                if (in_array($status, [403, 404], true)) {
+                    try {
+                        return Inertia::render('Store/Error', ['status' => $status])->toResponse($request)->setStatusCode($status);
+                    } catch (\Throwable) {
+                        return response()->view('errors.500', ['code' => $status], $status);
+                    }
+                }
             }
             if ($status === 419) {
                 return back()->with('error', 'Your session expired. Please try again.');
