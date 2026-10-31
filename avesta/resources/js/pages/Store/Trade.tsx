@@ -29,7 +29,7 @@ export default function Trade({ content }: { content: string | null }) {
                     <p className="mt-5 max-w-lg text-[17px] text-white/65">{settings.trade_cta_text}</p>
                     <div className="mt-8 flex flex-wrap gap-3">
                         <Button variant="gold" size="lg" href={cta}>Apply as a Trader</Button>
-                        <Button variant="outline" size="lg" className="border-white/25 bg-transparent text-white hover:border-white hover:bg-white/10" href={auth?.user ? route('account.trade') : route('register', { type: 'wholesaler' })}>Apply as a Wholesaler</Button>
+                        <Button variant="outline" size="lg" className="!border-white/30 !bg-white/5 !text-white backdrop-blur hover:!border-white hover:!bg-white/15" href={auth?.user ? route('account.trade') : route('register', { type: 'wholesaler' })}>Apply as a Wholesaler</Button>
                     </div>
                 </div>
             </section>
