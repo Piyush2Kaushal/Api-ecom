@@ -28,7 +28,7 @@ class ProductController extends Controller
         $related = ProductPresenter::cardQuery()->where('products.id', '!=', $product->id)
             ->where(fn ($q) => $q->where('category_id', $product->category_id)->orWhere('brand_id', $product->brand_id))
             ->orderByRaw('CASE WHEN category_id = ? THEN 0 ELSE 1 END', [$product->category_id ?? 0])
-            ->orderByDesc('sales_count')->limit(8)->get();
+            ->orderByDesc('sales_count')->limit(10)->get();
 
         // "Frequently bought together" from paid orders containing this product.
         $togetherIds = OrderItem::whereIn('order_id', OrderItem::where('product_id', $product->id)->select('order_id'))

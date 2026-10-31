@@ -31,18 +31,18 @@ function Gallery({ images, active, setActive, name }: { images: { url: string; a
     const [zoom, setZoom] = useState<{ x: number; y: number } | null>(null);
     const current = images[active];
     return (
-        <div className="flex flex-col-reverse gap-3 md:flex-row">
+        <div className="mx-auto flex w-full max-w-[640px] flex-col-reverse gap-3 md:flex-row">
             {images.length > 1 && (
                 <div className="flex gap-2.5 overflow-x-auto scrollbar-none md:flex-col">
                     {images.map((img, i) => (
-                        <button key={i} onClick={() => setActive(i)} className={cn('size-[72px] shrink-0 overflow-hidden rounded-xl bg-porcelain p-2 ring-2 transition', i === active ? 'ring-onyx' : 'ring-transparent hover:ring-fog')} aria-label={`Image ${i + 1}`}>
-                            <img src={img.url} alt="" className="size-full object-contain" />
+                        <button key={i} onClick={() => setActive(i)} className={cn('size-[64px] shrink-0 overflow-hidden rounded-xl bg-white p-1.5 transition', i === active ? 'ring-2 ring-violet-500 shadow-soft' : 'ring-1 ring-mist opacity-70 hover:opacity-100 hover:ring-fog')} aria-label={`Image ${i + 1}`}>
+                            <img src={img.url} alt="" className="size-full object-contain mix-blend-multiply" />
                         </button>
                     ))}
                 </div>
             )}
             <div
-                className="relative aspect-square flex-1 cursor-zoom-in overflow-hidden rounded-3xl bg-porcelain"
+                className="relative aspect-square flex-1 cursor-zoom-in overflow-hidden rounded-[28px] bg-[radial-gradient(70%_70%_at_50%_45%,#ffffff_0%,#f7f7f9_100%)] ring-1 ring-mist"
                 onMouseMove={(e) => {
                     const r = e.currentTarget.getBoundingClientRect();
                     setZoom({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100 });
@@ -60,7 +60,7 @@ function Gallery({ images, active, setActive, name }: { images: { url: string; a
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                             style={{ transformOrigin: zoom ? `${zoom.x}% ${zoom.y}%` : 'center' }}
-                            className="absolute inset-0 size-full object-contain p-[10%]"
+                            className="absolute inset-0 size-full object-contain p-[12%] mix-blend-multiply"
                         />
                     )}
                 </AnimatePresence>
@@ -136,14 +136,14 @@ export default function Product({ product, related, together, reviews, reviewSta
                 <Breadcrumbs items={[...product.breadcrumbs.map((b) => ({ label: b.name, href: route('category.show', b.slug) })), { label: product.name }]} />
             </div>
 
-            <section className="container-x grid gap-10 py-8 lg:grid-cols-12 lg:gap-14 lg:py-10">
-                <div className="lg:col-span-7">
+            <section className="container-x grid gap-8 py-6 lg:grid-cols-12 lg:gap-12 lg:py-8">
+                <div className="lg:col-span-6">
                     <div className="lg:sticky lg:top-28">
                         <Gallery images={images} active={active} setActive={setActive} name={product.name} />
                     </div>
                 </div>
 
-                <div className="lg:col-span-5">
+                <div className="lg:col-span-6 xl:pr-6">
                     <div className="flex flex-wrap items-center gap-2">
                         {product.brand && (
                             <Link href={route('brand.show', product.brand.slug)} className="text-[12px] font-semibold uppercase tracking-[0.16em] text-violet-600 hover:text-violet-800">
@@ -153,9 +153,9 @@ export default function Product({ product, related, together, reviews, reviewSta
                         {product.brand?.is_exclusive && <span className="rounded-full bg-onyx px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-gold">Exclusive</span>}
                         {product.is_new && <span className="rounded-full bg-violet-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-violet-700">New</span>}
                     </div>
-                    <h1 className="mt-3 font-display text-[28px] font-semibold leading-[1.12] tracking-[-0.025em] md:text-[36px]">{product.name}</h1>
+                    <h1 className="mt-2.5 font-display text-[26px] font-semibold leading-[1.15] tracking-[-0.025em] md:text-[32px]">{product.name}</h1>
                     <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-slate">
-                        <span>SKU: <span className="font-medium text-carbon">{variant?.sku || product.sku}</span></span>
+                        <span className="rounded-md bg-porcelain px-2 py-0.5 ring-1 ring-mist">SKU: <span className="font-medium text-carbon">{variant?.sku || product.sku}</span></span>
                         {reviewStats.count > 0 && (
                             <button onClick={() => setTab('reviews')} className="flex items-center gap-1.5">
                                 <Stars value={reviewStats.average} /> {reviewStats.average} ({reviewStats.count})
@@ -163,7 +163,8 @@ export default function Product({ product, related, together, reviews, reviewSta
                         )}
                     </div>
 
-                    <div className="mt-6 rounded-3xl border border-mist p-5 md:p-6">
+                    <div className="relative mt-6 overflow-hidden rounded-[24px] bg-white p-5 shadow-[0_1px_2px_rgb(10_10_15/0.04),0_12px_40px_-20px_rgb(36_16_79/0.18)] ring-1 ring-mist md:p-6">
+                        <div className="pointer-events-none absolute -right-20 -top-20 size-56 rounded-full bg-violet-100/50 blur-3xl" />
                         <Price price={price} vatMode={product.vat_mode} size="xl" showVat showSaving />
                         <div className="mt-3 flex items-center gap-2 text-[13px]">
                             {inStock ? (
@@ -254,15 +255,17 @@ export default function Product({ product, related, together, reviews, reviewSta
                         )}
                     </div>
 
-                    <ul className="mt-6 grid gap-3 text-[13.5px] sm:grid-cols-2">
+                    <ul className="mt-5 grid grid-cols-2 gap-2.5 text-[12.5px]">
                         {[
                             { icon: Truck, text: settings.free_shipping_active ? `Free UK delivery over ${money(settings.free_shipping_threshold)}` : 'Fast UK delivery' },
                             { icon: ShieldCheck, text: 'Full manufacturer warranty' },
                             { icon: RotateCcw, text: '30-day returns on unused items' },
                             { icon: BadgeCheck, text: 'Secure checkout with Stripe' },
                         ].map(({ icon: Icon, text }) => (
-                            <li key={text} className="flex items-center gap-2.5 text-carbon">
-                                <Icon className="size-[18px] text-violet-600" strokeWidth={1.75} />
+                            <li key={text} className="flex items-center gap-2.5 rounded-2xl bg-porcelain/70 px-3 py-2.5 font-medium text-carbon ring-1 ring-mist/70">
+                                <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-white text-violet-600 shadow-sm ring-1 ring-mist">
+                                    <Icon className="size-4" strokeWidth={1.75} />
+                                </span>
                                 {text}
                             </li>
                         ))}
@@ -390,19 +393,19 @@ export default function Product({ product, related, together, reviews, reviewSta
                 <section className="bg-porcelain py-14 md:py-20">
                     <div className="container-x">
                         <SectionHeading title="Frequently bought together" />
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-6 md:grid-cols-4">
-                            {together.map((p) => <ProductCard key={p.id} product={p} />)}
+                        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 lg:gap-5">
+                            {together.map((p) => <ProductCard key={p.id} product={p} variant="premium" />)}
                         </div>
                     </div>
                 </section>
             )}
 
             {related.length > 0 && (
-                <section className="py-14 md:py-20">
+                <section className="py-12 md:py-16">
                     <div className="container-x">
-                        <SectionHeading title="You may also like" />
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-6 md:grid-cols-4">
-                            {related.slice(0, 8).map((p) => <ProductCard key={p.id} product={p} />)}
+                        <SectionHeading eyebrow="More to explore" title="You may also like" />
+                        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 lg:gap-5">
+                            {related.slice(0, 10).map((p) => <ProductCard key={p.id} product={p} variant="premium" />)}
                         </div>
                     </div>
                 </section>
