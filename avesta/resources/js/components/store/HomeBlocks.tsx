@@ -261,25 +261,39 @@ export function ProductRail({ section }: { section: HomeSection }) {
     const dark = theme === 'dark' || theme === 'violet';
     const scroll = (dir: number) => ref.current?.scrollBy({ left: dir * ref.current.clientWidth * 0.8, behavior: 'smooth' });
     return (
-        <section className={cn('py-14 md:py-20', themeBg[theme])}>
+        <section className={cn('py-12 md:py-16', themeBg[theme])}>
             <div className="container-x">
-                <Reveal className="flex flex-wrap items-end justify-between gap-4">
-                    <SectionHeading title={section.title ?? 'Featured'} subtitle={section.subtitle} tone={dark ? 'dark' : 'light'} className="mb-0 md:mb-0" />
-                    <div className="flex items-center gap-2">
-                        {section.link && (
-                            <Link href={section.link} className={cn('mr-2 hidden text-sm font-semibold sm:inline-flex', dark ? 'text-white' : 'text-onyx')}>
-                                View all
-                            </Link>
-                        )}
-                        <button onClick={() => scroll(-1)} className={cn('flex size-11 items-center justify-center rounded-full ring-1 transition', dark ? 'text-white ring-white/20 hover:bg-white hover:text-onyx' : 'ring-fog hover:bg-onyx hover:text-white hover:ring-onyx')} aria-label="Scroll left">
+                <Reveal className="flex items-end justify-between gap-4">
+                    <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                            <h2 className={cn('text-[26px] font-semibold leading-[1.1] md:text-[34px]', dark ? 'text-white' : 'text-onyx')}>{section.title ?? 'Featured'}</h2>
+                            {section.link && (
+                                <Link
+                                    href={section.link}
+                                    className={cn(
+                                        'group inline-flex h-8 items-center gap-1.5 rounded-full pl-3.5 pr-1 text-[12.5px] font-semibold transition-all duration-300',
+                                        dark ? 'bg-white/10 text-white ring-1 ring-white/15 hover:bg-white hover:text-onyx' : 'bg-violet-50 text-violet-700 ring-1 ring-violet-100 hover:bg-violet-600 hover:text-white hover:shadow-glow hover:ring-violet-600',
+                                    )}
+                                >
+                                    View all
+                                    <span className={cn('flex size-6 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-0.5', dark ? 'bg-white/15 group-hover:bg-onyx group-hover:text-white' : 'bg-white text-violet-600 shadow-sm group-hover:text-violet-700')}>
+                                        <ArrowRight className="size-3.5" />
+                                    </span>
+                                </Link>
+                            )}
+                        </div>
+                        {section.subtitle && <p className={cn('mt-1.5 text-[14.5px] leading-relaxed', dark ? 'text-white/60' : 'text-slate')}>{section.subtitle}</p>}
+                    </div>
+                    <div className="hidden shrink-0 items-center gap-2 sm:flex">
+                        <button onClick={() => scroll(-1)} className={cn('flex size-10 items-center justify-center rounded-full ring-1 transition', dark ? 'text-white ring-white/20 hover:bg-white hover:text-onyx' : 'bg-white ring-mist hover:bg-onyx hover:text-white hover:ring-onyx')} aria-label="Scroll left">
                             <ArrowLeft className="size-4" />
                         </button>
-                        <button onClick={() => scroll(1)} className={cn('flex size-11 items-center justify-center rounded-full ring-1 transition', dark ? 'text-white ring-white/20 hover:bg-white hover:text-onyx' : 'ring-fog hover:bg-onyx hover:text-white hover:ring-onyx')} aria-label="Scroll right">
+                        <button onClick={() => scroll(1)} className={cn('flex size-10 items-center justify-center rounded-full ring-1 transition', dark ? 'text-white ring-white/20 hover:bg-white hover:text-onyx' : 'bg-white ring-mist hover:bg-onyx hover:text-white hover:ring-onyx')} aria-label="Scroll right">
                             <ArrowRight className="size-4" />
                         </button>
                     </div>
                 </Reveal>
-                <div ref={ref} className="-mx-4 mt-8 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto scroll-smooth px-4 pb-4 pt-2 scrollbar-none sm:gap-4 md:mt-10 lg:-mx-1.5 lg:scroll-px-1.5 lg:gap-5 lg:px-1.5">
+                <div ref={ref} className="-mx-4 mt-3 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto scroll-smooth px-4 pb-4 pt-2 scrollbar-none sm:gap-4 md:mt-4 lg:-mx-1.5 lg:scroll-px-1.5 lg:gap-5 lg:px-1.5">
                     {products.map((p) => (
                         <div key={p.id} className="w-[47%] shrink-0 snap-start sm:w-[31%] md:w-[calc(25%-12px)] lg:w-[calc(20%-16px)]">
                             <ProductCard product={p} tone={dark ? 'dark' : 'light'} variant="premium" />
