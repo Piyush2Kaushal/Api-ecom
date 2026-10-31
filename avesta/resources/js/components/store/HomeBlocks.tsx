@@ -1,7 +1,8 @@
 import { Link, useForm } from '@inertiajs/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowLeft, ArrowRight, Award, BadgeCheck, GraduationCap, Headset, Lock, ShieldCheck, Truck, Zap } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Award, BadgeCheck, Check, Clock, GraduationCap, Headset, Lightbulb, Lock, Mail, Phone, Repeat2, Settings, ShieldCheck, ShoppingCart, Tag, Truck, Users, Zap } from 'lucide-react';
+import { useShared } from '@/hooks/useShared';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { cn, route } from '@/lib/utils';
 import type { ProductCard as Card } from '@/types';
@@ -186,7 +187,7 @@ export function Hero({ slides }: { slides: any[] }) {
 
 /* ------------------------------------------------------------------ USP */
 
-const icons: Record<string, any> = { truck: Truck, shield: ShieldCheck, badge: BadgeCheck, headset: Headset, award: Award, graduation: GraduationCap, lock: Lock, zap: Zap };
+const icons: Record<string, any> = { truck: Truck, shield: ShieldCheck, badge: BadgeCheck, headset: Headset, award: Award, graduation: GraduationCap, lock: Lock, zap: Zap, trade: Repeat2, bulb: Lightbulb, settings: Settings, cart: ShoppingCart, users: Users, tag: Tag, clock: Clock };
 
 export function UspStrip({ section }: { section: HomeSection }) {
     const items: any[] = section.settings.items ?? [];
@@ -553,6 +554,135 @@ export function TextBlock({ section }: { section: HomeSection }) {
             <div className="container-x max-w-3xl">
                 {section.title && <h2 className="mb-6 font-display text-3xl font-semibold">{section.title}</h2>}
                 <div className="prose-avesta" dangerouslySetInnerHTML={{ __html: section.settings.html ?? '' }} />
+            </div>
+        </section>
+    );
+}
+
+/* ------------------------------------------------------------------ Technical support */
+
+export function SupportCta({ section }: { section: HomeSection }) {
+    const s = section.settings;
+    const { settings } = useShared() as any;
+    const phone: string | undefined = settings?.company_phone;
+    const email: string | undefined = settings?.company_email;
+    const points: string[] = (s.points ?? []).map((p: any) => (typeof p === 'string' ? p : p?.text)).filter(Boolean);
+    const imageLeft = (s.image_position ?? 'left') === 'left';
+    return (
+        <section className="py-12 md:py-16">
+            <div className="container-x">
+                <div className="relative isolate overflow-hidden rounded-[28px] bg-gradient-to-br from-violet-50 via-white to-porcelain p-3 ring-1 ring-mist md:rounded-[36px] md:p-4">
+                    <div className="pointer-events-none absolute -right-24 -top-24 -z-10 size-80 rounded-full bg-violet-200/40 blur-3xl" />
+                    <div className="pointer-events-none absolute -bottom-32 left-1/3 -z-10 size-80 rounded-full bg-gold/10 blur-3xl" />
+                    <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12">
+                        <Reveal className={cn('relative', !imageLeft && 'lg:order-2')}>
+                            {s.image_url && (
+                                <div className="group relative overflow-hidden rounded-[22px] md:rounded-[28px]">
+                                    <img src={s.image_url} alt={section.title ?? ''} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-[1200ms] ease-[var(--ease-premium)] group-hover:scale-[1.03]" />
+                                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-onyx/30 via-transparent to-transparent" />
+                                </div>
+                            )}
+                            <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-2xl bg-white/80 px-3.5 py-2.5 shadow-lift ring-1 ring-white/60 backdrop-blur-md md:bottom-6 md:left-6">
+                                <span className="relative flex size-9 items-center justify-center rounded-xl bg-violet-600 text-white">
+                                    <Headset className="size-[18px]" />
+                                    <span className="absolute -right-0.5 -top-0.5 size-2.5 rounded-full bg-success ring-2 ring-white" />
+                                </span>
+                                <div className="leading-tight">
+                                    <div className="text-[13px] font-semibold text-onyx">{s.badge_title || 'Experts online'}</div>
+                                    <div className="text-[11.5px] text-slate">{s.badge_text || 'UK-based technical team'}</div>
+                                </div>
+                            </div>
+                        </Reveal>
+
+                        <Reveal delay={120} className={cn('px-3 pb-5 md:px-6 lg:py-6', !imageLeft && 'lg:order-1')}>
+                            {s.eyebrow && (
+                                <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-violet-700 shadow-sm ring-1 ring-violet-100">
+                                    <span className="size-1.5 animate-pulse rounded-full bg-success" />
+                                    {s.eyebrow}
+                                </div>
+                            )}
+                            <h2 className="font-display text-[28px] font-semibold leading-[1.08] text-onyx md:text-[42px]">{section.title}</h2>
+                            {section.subtitle && <p className="mt-3 text-[16px] font-medium text-carbon md:text-lg">{section.subtitle}</p>}
+                            {s.text && <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-slate">{s.text}</p>}
+                            {points.length > 0 && (
+                                <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
+                                    {points.map((p) => (
+                                        <li key={p} className="flex items-start gap-2.5 text-[14px] text-carbon">
+                                            <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-violet-600 text-white">
+                                                <Check className="size-3" strokeWidth={3} />
+                                            </span>
+                                            {p}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                            <div className="mt-8 flex flex-wrap items-center gap-3">
+                                {s.button_text && s.button_link && (
+                                    <Link href={s.button_link} className="group inline-flex h-12 items-center gap-2 rounded-full bg-violet-600 pl-6 pr-2 text-sm font-semibold text-white shadow-glow transition hover:bg-violet-700">
+                                        {s.button_text}
+                                        <span className="flex size-8 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5">
+                                            <ArrowRight className="size-4" />
+                                        </span>
+                                    </Link>
+                                )}
+                                {phone && (
+                                    <a href={`tel:${phone.replace(/\s+/g, '')}`} className="inline-flex h-12 items-center gap-2.5 rounded-full bg-white px-5 text-sm font-semibold text-onyx ring-1 ring-mist transition hover:ring-violet-300">
+                                        <Phone className="size-4 text-violet-600" /> {phone}
+                                    </a>
+                                )}
+                                {!phone && email && (
+                                    <a href={`mailto:${email}`} className="inline-flex h-12 items-center gap-2.5 rounded-full bg-white px-5 text-sm font-semibold text-onyx ring-1 ring-mist transition hover:ring-violet-300">
+                                        <Mail className="size-4 text-violet-600" /> {email}
+                                    </a>
+                                )}
+                            </div>
+                        </Reveal>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+/* ------------------------------------------------------------------ Why buy from us */
+
+export function FeatureGrid({ section }: { section: HomeSection }) {
+    const s = section.settings;
+    const items: any[] = s.items ?? [];
+    if (!items.length) return null;
+    const dark = s.theme === 'dark' || s.theme === 'violet';
+    return (
+        <section className={cn('relative isolate overflow-hidden py-14 md:py-20', themeBg[s.theme ?? 'light'])}>
+            {!dark && <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72 bg-[radial-gradient(50%_100%_at_50%_0%,rgb(91_43_217/0.07),transparent)]" />}
+            <div className="container-x">
+                <Reveal className="mx-auto mb-10 max-w-2xl text-center md:mb-14">
+                    {s.eyebrow && <div className={cn('eyebrow mb-3', dark && 'text-violet-300')}>{s.eyebrow}</div>}
+                    <h2 className={cn('font-display text-[28px] font-semibold leading-[1.1] md:text-[40px]', dark ? 'text-white' : 'text-onyx')}>{section.title}</h2>
+                    {section.subtitle && <p className={cn('mt-3 text-[15px] leading-relaxed md:text-base', dark ? 'text-white/60' : 'text-slate')}>{section.subtitle}</p>}
+                </Reveal>
+                <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
+                    {items.map((it, i) => {
+                        const Icon = icons[it.icon] ?? ShieldCheck;
+                        return (
+                            <Reveal key={i} delay={(i % 3) * 90}>
+                                <div
+                                    className={cn(
+                                        'group relative h-full overflow-hidden rounded-[22px] p-6 transition-all duration-500 ease-[var(--ease-premium)] hover:-translate-y-1 md:p-7',
+                                        dark ? 'bg-white/[0.04] ring-1 ring-white/10 hover:bg-white/[0.07]' : 'bg-white shadow-[0_1px_2px_rgb(10_10_15/0.04)] ring-1 ring-mist hover:shadow-lift hover:ring-violet-200',
+                                    )}
+                                >
+                                    <div className="pointer-events-none absolute -right-10 -top-10 size-36 rounded-full bg-violet-400/0 blur-2xl transition-colors duration-500 group-hover:bg-violet-400/15" />
+                                    <span className={cn('tabular absolute right-6 top-6 font-display text-[13px] font-semibold', dark ? 'text-white/20' : 'text-fog')}>{String(i + 1).padStart(2, '0')}</span>
+                                    <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-violet-700 text-white shadow-[0_8px_24px_-8px_rgb(91_43_217/0.6)] transition-transform duration-500 group-hover:scale-105 group-hover:-rotate-3">
+                                        <Icon className="size-[22px]" strokeWidth={1.75} />
+                                    </span>
+                                    <h3 className={cn('mt-5 text-[18px] font-semibold', dark ? 'text-white' : 'text-onyx')}>{it.title}</h3>
+                                    {it.text && <p className={cn('mt-2 text-[14px] leading-relaxed', dark ? 'text-white/60' : 'text-slate')}>{it.text}</p>}
+                                </div>
+                            </Reveal>
+                        );
+                    })}
+                </div>
             </div>
         </section>
     );

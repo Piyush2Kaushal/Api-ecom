@@ -102,6 +102,7 @@ class HomeController extends Controller
                 $data['settings']['image_url'] = media_url($cfg['image'] ?? null);
                 break;
             case 'trade_cta':
+            case 'support_cta':
                 $data['settings']['image_url'] = media_url($cfg['image'] ?? null);
                 break;
         }

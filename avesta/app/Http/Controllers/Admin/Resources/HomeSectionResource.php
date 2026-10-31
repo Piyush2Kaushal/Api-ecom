@@ -32,6 +32,8 @@ class HomeSectionResource extends ResourceController
         'split' => 'Image + text block',
         'trade_cta' => 'Trade account call-to-action',
         'training_cta' => 'Training call-to-action',
+        'support_cta' => 'Technical support block',
+        'features' => 'Why buy from us (feature cards)',
         'brands' => 'Brand logos strip',
         'newsletter' => 'Newsletter sign-up',
         'text' => 'Free text',
@@ -47,7 +49,7 @@ class HomeSectionResource extends ResourceController
         $brands = Brand::orderBy('name')->get(['id', 'name'])->map(fn ($b) => ['value' => (string) $b->id, 'label' => $b->name])->all();
         $cats = collect(ProductController::categoryOptions())->map(fn ($c) => ['value' => (string) $c['id'], 'label' => $c['label']])->all();
         $show = fn (array $types) => ['field' => 'type', 'in' => $types];
-        $icons = static::options(['truck' => 'Delivery', 'shield' => 'Warranty', 'badge' => 'Trade pricing', 'headset' => 'Support', 'award' => 'Quality', 'graduation' => 'Training', 'lock' => 'Secure', 'zap' => 'Fast']);
+        $icons = static::options(['truck' => 'Delivery', 'shield' => 'Warranty', 'badge' => 'Trade pricing', 'headset' => 'Support', 'award' => 'Quality', 'graduation' => 'Training', 'lock' => 'Secure', 'zap' => 'Fast', 'trade' => 'Trade supplier', 'bulb' => 'Ideas / products', 'settings' => 'Technical', 'cart' => 'Dispatch / cart', 'users' => 'People / training', 'tag' => 'Pricing tag', 'clock' => 'Time']);
 
         return [
             ['name' => 'type', 'label' => 'Block type', 'type' => 'select', 'required' => true, 'options' => static::options(self::TYPES)],
@@ -55,7 +57,7 @@ class HomeSectionResource extends ResourceController
             ['name' => 'subtitle', 'label' => 'Sub-heading', 'type' => 'textarea', 'max' => 500],
             ['name' => 'is_active', 'label' => 'Visible', 'type' => 'toggle', 'default' => true],
 
-            ['name' => 'settings.eyebrow', 'label' => 'Small label', 'type' => 'text', 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta'])],
+            ['name' => 'settings.eyebrow', 'label' => 'Small label', 'type' => 'text', 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta', 'support_cta', 'features'])],
 
             // Products
             ['name' => 'settings.source', 'label' => 'Which products?', 'type' => 'select', 'showIf' => $show(['products']), 'default' => 'featured',
@@ -65,7 +67,7 @@ class HomeSectionResource extends ResourceController
             ['name' => 'settings.product_ids', 'label' => 'Products', 'type' => 'multiselect', 'showIf' => ['field' => 'settings.source', 'in' => ['manual']],
                 'options' => Product::orderBy('name')->limit(5000)->get(['id', 'name', 'sku'])->map(fn ($p) => ['value' => (string) $p->id, 'label' => $p->name.' ('.$p->sku.')'])->all()],
             ['name' => 'settings.limit', 'label' => 'How many', 'type' => 'number', 'showIf' => $show(['products']), 'default' => 8],
-            ['name' => 'settings.theme', 'label' => 'Background', 'type' => 'select', 'showIf' => $show(['products', 'banner', 'split', 'usp', 'newsletter']), 'default' => 'light',
+            ['name' => 'settings.theme', 'label' => 'Background', 'type' => 'select', 'showIf' => $show(['products', 'banner', 'split', 'usp', 'newsletter', 'features']), 'default' => 'light',
                 'options' => static::options(['light' => 'White', 'muted' => 'Soft grey', 'dark' => 'Black (premium)', 'violet' => 'Deep violet'])],
 
             // Categories
@@ -78,15 +80,21 @@ class HomeSectionResource extends ResourceController
                 'fields' => [['name' => 'title', 'label' => 'Title', 'type' => 'text'], ['name' => 'text', 'label' => 'Text', 'type' => 'text']]],
 
             // Shared visual + CTA
-            ['name' => 'settings.text', 'label' => 'Body text', 'type' => 'textarea', 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta', 'newsletter'])],
-            ['name' => 'settings.image', 'label' => 'Image', 'type' => 'image', 'col' => 6, 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta'])],
+            ['name' => 'settings.text', 'label' => 'Body text', 'type' => 'textarea', 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta', 'support_cta', 'newsletter'])],
+            ['name' => 'settings.image', 'label' => 'Image', 'type' => 'image', 'col' => 6, 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta', 'support_cta'])],
             ['name' => 'settings.mobile_image', 'label' => 'Mobile image', 'type' => 'image', 'col' => 6, 'showIf' => $show(['banner'])],
-            ['name' => 'settings.image_position', 'label' => 'Image side', 'type' => 'select', 'showIf' => $show(['split']), 'default' => 'right', 'options' => static::options(['left' => 'Left', 'right' => 'Right'])],
-            ['name' => 'settings.button_text', 'label' => 'Button text', 'type' => 'text', 'col' => 6, 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta'])],
-            ['name' => 'settings.button_link', 'label' => 'Button link', 'type' => 'text', 'col' => 6, 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta'])],
+            ['name' => 'settings.image_position', 'label' => 'Image side', 'type' => 'select', 'showIf' => $show(['split', 'support_cta']), 'default' => 'right', 'options' => static::options(['left' => 'Left', 'right' => 'Right'])],
+            ['name' => 'settings.button_text', 'label' => 'Button text', 'type' => 'text', 'col' => 6, 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta', 'support_cta'])],
+            ['name' => 'settings.button_link', 'label' => 'Button link', 'type' => 'text', 'col' => 6, 'showIf' => $show(['brand_spotlight', 'banner', 'split', 'trade_cta', 'training_cta', 'support_cta'])],
 
-            // USP strip
-            ['name' => 'settings.items', 'label' => 'Benefits', 'type' => 'repeater', 'showIf' => $show(['usp']),
+            // Technical support extras
+            ['name' => 'settings.points', 'label' => 'Tick points', 'type' => 'repeater', 'showIf' => $show(['support_cta']),
+                'fields' => [['name' => 'text', 'label' => 'Point', 'type' => 'text']]],
+            ['name' => 'settings.badge_title', 'label' => 'Image badge title', 'type' => 'text', 'col' => 6, 'showIf' => $show(['support_cta']), 'help' => 'e.g. Experts online'],
+            ['name' => 'settings.badge_text', 'label' => 'Image badge text', 'type' => 'text', 'col' => 6, 'showIf' => $show(['support_cta']), 'help' => 'The phone button uses the number in Settings → Store & company.'],
+
+            // USP strip / feature cards
+            ['name' => 'settings.items', 'label' => 'Items', 'type' => 'repeater', 'showIf' => $show(['usp', 'features']),
                 'fields' => [['name' => 'icon', 'label' => 'Icon', 'type' => 'select', 'options' => $icons], ['name' => 'title', 'label' => 'Title', 'type' => 'text'], ['name' => 'text', 'label' => 'Text', 'type' => 'text']]],
 
             // Free text

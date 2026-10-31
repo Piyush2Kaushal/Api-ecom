@@ -1,4 +1,4 @@
-import { Banner, BrandSpotlight, BrandsStrip, CategoryTiles, Hero, NewsletterBlock, ProductRail, Split, TextBlock, TradeCta, TrainingCta, UspStrip, type HomeSection } from '@/components/store/HomeBlocks';
+import { Banner, BrandSpotlight, BrandsStrip, CategoryTiles, FeatureGrid, Hero, NewsletterBlock, ProductRail, Split, SupportCta, TextBlock, TradeCta, TrainingCta, UspStrip, type HomeSection } from '@/components/store/HomeBlocks';
 
 export default function Home({ sections }: { sections: HomeSection[] }) {
     return (
@@ -27,6 +27,10 @@ export default function Home({ sections }: { sections: HomeSection[] }) {
                         return <BrandsStrip key={s.id} section={s} />;
                     case 'newsletter':
                         return <NewsletterBlock key={s.id} section={s} />;
+                    case 'support_cta':
+                        return <SupportCta key={s.id} section={s} />;
+                    case 'features':
+                        return <FeatureGrid key={s.id} section={s} />;
                     case 'text':
                         return <TextBlock key={s.id} section={s} />;
                     default:
