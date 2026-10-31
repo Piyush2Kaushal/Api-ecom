@@ -78,6 +78,8 @@ function AnnouncementBar() {
 }
 
 function MegaPanel({ cat, onClose }: { cat: CategoryNode; onClose: () => void }) {
+    // No grandchildren anywhere → show compact tiles instead of empty columns.
+    const flat = cat.children.every((c) => c.children.length === 0);
     const renderDeep = (nodes: CategoryNode[], level: number) =>
         nodes.length > 0 && (
             <ul className={cn('space-y-1.5', level > 3 && 'mt-1.5 border-l border-mist pl-3')}>
@@ -100,7 +102,40 @@ function MegaPanel({ cat, onClose }: { cat: CategoryNode; onClose: () => void })
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-x-0 top-full border-t border-mist bg-white shadow-[0_30px_60px_-30px_rgb(10_10_15/0.25)]"
         >
-            <div className="container-x grid grid-cols-12 gap-10 py-10">
+            <div className={cn('container-x grid grid-cols-12', flat ? 'gap-8 py-7' : 'gap-10 py-10')}>
+                {flat ? (
+                    <div className="col-span-9">
+                        <div className="mb-4 flex items-center justify-between">
+                            <div className="eyebrow">Browse {cat.name}</div>
+                            <span className="tabular text-[12px] text-slate">{cat.children.length} categories</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2.5 xl:grid-cols-3">
+                            {cat.children.map((c) => (
+                                <Link
+                                    key={c.id}
+                                    href={route('category.show', c.slug)}
+                                    onClick={onClose}
+                                    className="group flex items-center gap-3.5 rounded-2xl bg-white p-2.5 pr-4 ring-1 ring-mist transition-all duration-300 hover:-translate-y-0.5 hover:bg-violet-50/40 hover:shadow-soft hover:ring-violet-200"
+                                >
+                                    <span className="flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-b from-white to-porcelain ring-1 ring-mist">
+                                        {c.image_url ? (
+                                            <img src={c.image_url} alt="" className="size-11 object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110" />
+                                        ) : (
+                                            <span className="font-display text-lg font-semibold text-violet-600">{c.name.charAt(0)}</span>
+                                        )}
+                                    </span>
+                                    <span className="min-w-0 flex-1">
+                                        <span className="block text-[14px] font-semibold leading-snug text-onyx transition-colors group-hover:text-violet-700">{c.name}</span>
+                                        <span className="mt-0.5 block text-[12px] text-slate">Shop now</span>
+                                    </span>
+                                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-porcelain text-slate transition-all duration-300 group-hover:bg-violet-600 group-hover:text-white">
+                                        <ArrowRight className="size-3.5" />
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
                 <div className="col-span-9 grid grid-cols-3 gap-x-10 gap-y-8 xl:grid-cols-4">
                     {cat.children.map((c) => (
                         <div key={c.id}>
@@ -112,12 +147,17 @@ function MegaPanel({ cat, onClose }: { cat: CategoryNode; onClose: () => void })
                         </div>
                     ))}
                 </div>
-                <Link href={route('category.show', cat.slug)} onClick={onClose} className="group col-span-3 overflow-hidden rounded-3xl bg-noir p-6 text-white">
-                    <div className="eyebrow text-violet-300">Shop all</div>
-                    <div className="mt-2 font-display text-2xl font-semibold">{cat.name}</div>
-                    {cat.image_url && <img src={cat.image_url} alt="" className="mx-auto mt-4 h-36 object-contain transition duration-700 group-hover:scale-105" />}
-                    <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
-                        Explore <ArrowRight className="size-4 transition group-hover:translate-x-1" />
+                )}
+                <Link href={route('category.show', cat.slug)} onClick={onClose} className="group relative col-span-3 flex flex-col overflow-hidden rounded-3xl bg-noir p-6 text-white ring-1 ring-white/5">
+                    <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-violet-500/30 blur-3xl transition-opacity duration-500 group-hover:opacity-80" />
+                    <div className="eyebrow relative text-violet-300">Shop all</div>
+                    <div className="relative mt-2 font-display text-2xl font-semibold">{cat.name}</div>
+                    {cat.image_url && <img src={cat.image_url} alt="" className={cn('relative mx-auto my-3 object-contain drop-shadow-[0_12px_24px_rgb(0_0_0/0.45)] transition duration-700 group-hover:scale-105', flat ? 'h-24' : 'h-36')} />}
+                    <div className="relative mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-white/10 py-1.5 pl-4 pr-1.5 text-sm font-semibold ring-1 ring-white/15 backdrop-blur transition group-hover:bg-white group-hover:text-onyx">
+                        Explore
+                        <span className="flex size-7 items-center justify-center rounded-full bg-violet-600 text-white">
+                            <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" />
+                        </span>
                     </div>
                 </Link>
             </div>
