@@ -279,10 +279,10 @@ export function ProductRail({ section }: { section: HomeSection }) {
                         </button>
                     </div>
                 </Reveal>
-                <div ref={ref} className="-mx-4 mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-2 scrollbar-none sm:gap-6 lg:-mx-0 lg:px-0">
+                <div ref={ref} className="-mx-4 mt-8 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto scroll-smooth px-4 pb-4 pt-2 scrollbar-none sm:gap-4 md:mt-10 lg:-mx-1.5 lg:scroll-px-1.5 lg:gap-5 lg:px-1.5">
                     {products.map((p) => (
-                        <div key={p.id} className="w-[46%] shrink-0 snap-start sm:w-[31%] lg:w-[calc(25%-18px)]">
-                            <ProductCard product={p} tone={dark ? 'dark' : 'light'} />
+                        <div key={p.id} className="w-[47%] shrink-0 snap-start sm:w-[31%] md:w-[calc(25%-12px)] lg:w-[calc(20%-16px)]">
+                            <ProductCard product={p} tone={dark ? 'dark' : 'light'} variant="premium" />
                         </div>
                     ))}
                 </div>
