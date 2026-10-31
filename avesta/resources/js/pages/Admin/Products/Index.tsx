@@ -102,7 +102,7 @@ export default function ProductsIndex({ products, filters, categories, brands }:
                                 <tr key={p.id} className={cn('hover:bg-porcelain/60', selected.includes(p.id) && 'bg-violet-50/40')}>
                                     <td className="px-4 py-3"><input type="checkbox" className="rounded border-fog" checked={selected.includes(p.id)} onChange={(e) => setSelected(e.target.checked ? [...selected, p.id] : selected.filter((x) => x !== p.id))} aria-label="Select" /></td>
                                     <td className="px-4 py-3">
-                                        <Link href={route('admin.products.edit', p.id)} className="flex items-center gap-3">
+                                        <Link href={route('admin.products.edit', p.id)} className="flex min-w-[260px] items-center gap-3">
                                             <span className="size-12 shrink-0 overflow-hidden rounded-xl bg-porcelain">{p.image && <img src={p.image} alt="" className="size-full object-contain p-1" />}</span>
                                             <span className="min-w-0">
                                                 <span className="line-clamp-1 max-w-sm font-semibold hover:text-violet-700">{p.name}</span>

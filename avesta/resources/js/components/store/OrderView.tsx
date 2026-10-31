@@ -55,6 +55,8 @@ export function OrderTotals({ order }: { order: any }) {
     );
 }
 
+const countries: Record<string, string> = { GB: 'United Kingdom', IE: 'Ireland', FR: 'France', DE: 'Germany', NL: 'Netherlands', BE: 'Belgium', ES: 'Spain', IT: 'Italy', PT: 'Portugal', US: 'United States', AE: 'United Arab Emirates' };
+
 export function AddressBlock({ title, a }: { title: string; a: any }) {
     if (!a) return null;
     return (
@@ -66,7 +68,7 @@ export function AddressBlock({ title, a }: { title: string; a: any }) {
             {a.line2 && <div>{a.line2}</div>}
             <div>{a.city} {a.postcode}</div>
             {a.county && <div>{a.county}</div>}
-            <div>{a.country}</div>
+            <div>{countries[a.country] ?? a.country}</div>
             {a.phone && <div className="text-slate">{a.phone}</div>}
         </div>
     );

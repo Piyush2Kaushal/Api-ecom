@@ -4,7 +4,7 @@
     $isCredit = $invoice->type === 'credit_note';
     $addr = function ($a) {
         return collect([trim(($a['first_name'] ?? '').' '.($a['last_name'] ?? '')), $a['company'] ?? null, $a['line1'] ?? null, $a['line2'] ?? null,
-            trim(($a['city'] ?? '').' '.($a['postcode'] ?? '')), $a['county'] ?? null, $a['country'] ?? null])->filter()->implode('<br>');
+            trim(($a['city'] ?? '').' '.($a['postcode'] ?? '')), $a['county'] ?? null, country_name($a['country'] ?? null)])->filter()->implode('<br>');
     };
 @endphp
 <!DOCTYPE html>
@@ -62,7 +62,7 @@
         <tr>
             <td><b>{{ $i->name }}</b>@if($i->variant_label)<br><span class="muted">{{ $i->variant_label }}</span>@endif
                 @if((float)$i->coupon_discount > 0)<br><span class="muted">Coupon −{{ $m($i->coupon_discount) }}</span>@endif</td>
-            <td>{{ $i->sku }}</td>
+            <td style="white-space:nowrap">{{ $i->sku }}</td>
             <td class="r">{{ $i->quantity }}</td>
             <td class="r">@if((float)$i->unit_original_price > (float)$i->unit_price)<span class="strike">{{ $m($i->unit_original_price) }}</span><br>@endif{{ $m($i->unit_price) }}</td>
             <td class="r">{{ $m($i->line_net) }}</td>

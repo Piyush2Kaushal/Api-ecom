@@ -356,16 +356,16 @@ export function Header() {
             <AnnouncementBar />
             <header className={cn('sticky top-0 z-40 transition-all duration-300', scrolled || mega ? 'glass border-b border-mist/80 shadow-[0_1px_0_rgb(10_10_15/0.02)]' : 'border-b border-transparent bg-white')} onMouseLeave={leave}>
                 <div className="container-x flex h-16 items-center gap-3 sm:h-[72px] sm:gap-6">
-                    <button onClick={() => setMobile(true)} className="-ml-2 rounded-xl p-2 lg:hidden" aria-label="Open menu">
+                    <button onClick={() => setMobile(true)} className="-ml-2 rounded-xl p-2 xl:hidden" aria-label="Open menu">
                         <Menu className="size-6" />
                     </button>
                     <Logo className="shrink-0" />
-                    <nav className="mx-auto hidden h-full items-center lg:flex" aria-label="Main">
+                    <nav className="mx-auto hidden h-full items-center xl:flex" aria-label="Main">
                         {nav?.categories.map((c) => (
                             <div key={c.id} className="h-full" onMouseEnter={() => (c.children.length ? enter(c.id) : setMega(null))}>
                                 <Link
                                     href={route('category.show', c.slug)}
-                                    className={cn('relative flex h-full items-center gap-1 px-3 text-[13.5px] font-medium tracking-[-0.005em] transition-colors xl:px-3.5', mega === c.id ? 'text-violet-700' : 'text-carbon hover:text-onyx')}
+                                    className={cn('relative flex h-full items-center gap-1 whitespace-nowrap px-2.5 text-[13.5px] font-medium tracking-[-0.005em] transition-colors 2xl:px-3.5', mega === c.id ? 'text-violet-700' : 'text-carbon hover:text-onyx')}
                                 >
                                     {c.name}
                                     {c.children.length > 0 && <ChevronDown className={cn('size-3.5 opacity-50 transition', mega === c.id && 'rotate-180')} />}
@@ -374,12 +374,12 @@ export function Header() {
                             </div>
                         ))}
                         {nav?.header_links.map((l) => (
-                            <Link key={l.url} href={l.url} onMouseEnter={() => setMega(null)} className="flex h-full items-center px-3 text-[13.5px] font-medium text-carbon transition hover:text-onyx xl:px-3.5">
+                            <Link key={l.url} href={l.url} onMouseEnter={() => setMega(null)} className="hidden h-full items-center whitespace-nowrap px-2.5 text-[13.5px] font-medium text-carbon transition hover:text-onyx 2xl:flex 2xl:px-3.5">
                                 {l.label}
                             </Link>
                         ))}
                     </nav>
-                    <div className="ml-auto flex items-center gap-0.5 lg:ml-0">
+                    <div className="ml-auto flex items-center gap-0.5 xl:ml-0">
                         <IconBtn label="Search" onClick={() => setSearch(true)}>
                             <Search className="size-[20px]" />
                         </IconBtn>

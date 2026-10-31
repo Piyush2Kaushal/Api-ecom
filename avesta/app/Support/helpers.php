@@ -32,3 +32,13 @@ if (! function_exists('money')) {
         return ($value < 0 ? '-' : '').($symbols[$currency] ?? $currency.' ').number_format(abs($value), 2);
     }
 }
+
+if (! function_exists('country_name')) {
+    function country_name(?string $code): ?string
+    {
+        $map = ['GB' => 'United Kingdom', 'IE' => 'Ireland', 'FR' => 'France', 'DE' => 'Germany', 'NL' => 'Netherlands', 'BE' => 'Belgium',
+            'ES' => 'Spain', 'IT' => 'Italy', 'PT' => 'Portugal', 'US' => 'United States', 'AE' => 'United Arab Emirates'];
+
+        return $code ? ($map[strtoupper($code)] ?? $code) : null;
+    }
+}
